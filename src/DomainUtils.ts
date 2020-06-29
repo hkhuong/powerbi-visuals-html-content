@@ -12,6 +12,26 @@
 
     export namespace DomainUtils {
 
+            export function resolveUserStylesheet(
+                stylesheetContainer: d3Select.Selection<HTMLStyleElement, any, any, any>,
+                css: string
+            ) {
+                stylesheetContainer.text(css)
+            }
+
+            export function resolveUserScript(
+                // scriptContainer: d3.Selection<HTMLScriptElement, any, any, any>,
+                script: string
+            ) {
+                d3Select.select(`#${VisualConstants.dom.scriptIdSelector}`)
+                    .remove();
+                let scriptContainer =  d3Select.select('body')
+                    .append('script')
+                        .attr('id', VisualConstants.dom.scriptIdSelector)
+                        .attr('name', VisualConstants.dom.scriptIdSelector);
+                scriptContainer.text(script);
+            }
+
         /**
          * For the specified element, process all hyperlinks so that they are either explicitly denied,
          * or delegated to the Power BI visual host for permission to open.
@@ -22,7 +42,7 @@
          */
             export function resolveHyperlinkHandling(
                 host: IVisualHost,
-                container: d3.Selection<any, any, any, any>,
+                container: d3Select.Selection<any, any, any, any>,
                 allowDelegation?: boolean
             ) {
                 container
@@ -44,7 +64,7 @@
          */
             export function resolveGroupSeparation(
                 type: string,
-                dataElements: d3.Selection<any, any, any, any>
+                dataElements: d3Select.Selection<any, any, any, any>
             ) {
                 // Remove the final element, as it's not required
                     let eligible = dataElements.filter((e, i) => i < dataElements.data().length - 1);
@@ -65,7 +85,7 @@
          * @param useRaw        - Whether we should be displaying raw HTML or not    
          */
             export function resolveHtmlGroupElement(
-                dataElements: d3.Selection<any, any, any, any>,
+                dataElements: d3Select.Selection<any, any, any, any>,
                 useRaw?: boolean
             ) {
                 // Remove any applied elements
@@ -88,7 +108,7 @@
          * @param props     - Supported styling properties.
          */
             export function resolveBodyStyling(
-                element: d3.Selection<any, any, any, any>,
+                element: d3Select.Selection<any, any, any, any>,
                 props: IBodyElementStylingProps
             ) {
                 element
@@ -120,11 +140,11 @@
          * @param selectionManager  - Power BI host services selection manager instance.
          */
             export function resolveContextMenu(
-                container: d3.Selection<any, any, any, any>,
+                container: d3Select.Selection<any, any, any, any>,
                 selectionManager: ISelectionManager
             ) {
                 container.on('contextmenu', () => {
-                    const mouseEvent: MouseEvent = d3Select.event as MouseEvent;
+                    const mouseEvent: MouseEvent = <MouseEvent>d3Select.event;
                     selectionManager.showContextMenu({}, {
                         x: mouseEvent.x,
                         y: mouseEvent.y
@@ -141,7 +161,7 @@
          * @param data      - Array of view model data to bind.
          */
             export function bindVisualDataToDom(
-                container: d3.Selection<any, any, any, any>,
+                container: d3Select.Selection<any, any, any, any>,
                 data: string[]
             ) {
                 return container

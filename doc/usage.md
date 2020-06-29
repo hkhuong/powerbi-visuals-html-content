@@ -220,8 +220,8 @@ We could also take [David Eldersveld's excellent sparkline concept](https://comm
             VAR XMaxDate = MAX('Financials'[Date])
             
         // Obtain overall min and overall max measure values when evaluated for each date
-            VAR YMinValue = MINX(VALUES('Financials'[Date]),CALCULATE([$ Sales]))
-            VAR YMaxValue = MAXX(VALUES('Financials'[Date]),CALCULATE([$ Sales]))
+            VAR YMinValue = MINX(VALUES('Date'[Date]),CALCULATE([$ Sales]))
+            VAR YMaxValue = MAXX(VALUES('Date'[Date]),CALCULATE([$ Sales]))
 
         // Resolved measures, as for previous examples
             VAR CountryFlag = SELECTEDVALUE(Financials[Country Flag HTML])
@@ -250,9 +250,9 @@ We could also take [David Eldersveld's excellent sparkline concept](https://comm
             VAR SparklineTable = ADDCOLUMNS(
                 SUMMARIZE(
                     'Financials',
-                    'Financials'[Date]
+                    'Date'[Date]
                 ),
-                "X", INT(SparklineWidth * DIVIDE('Financials'[Date] - XMinDate, XMaxDate - XMinDate)),
+                "X", INT(SparklineWidth * DIVIDE('Date'[Date] - XMinDate, XMaxDate - XMinDate)),
                 "Y", INT(SparklineHeight * DIVIDE([$ Sales] - YMinValue,YMaxValue - YMinValue))
             )
 

@@ -6,7 +6,7 @@
  *  MIT License
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the ""Software""), to deal
+ *  of this software and associated documentation files (the ''Software''), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is
@@ -24,14 +24,15 @@
  *  THE SOFTWARE.
  */
 
-"use strict";
+'use strict';
 
-import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
+import { dataViewObjectsParser } from 'powerbi-visuals-utils-dataviewutils';
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 import { VisualConstants } from './VisualConstants';
 
 export class VisualSettings extends DataViewObjectsParser {
     public contentFormatting: ContentFormattingSettings = new ContentFormattingSettings();
+    public advancedEditing: AdvancedEditingSettings = new AdvancedEditingSettings();
 }
 
 export class ContentFormattingSettings {
@@ -51,3 +52,11 @@ export class ContentFormattingSettings {
         public align: string = VisualConstants.contentFormatting.align;
 }
 
+export class AdvancedEditingSettings {
+    // Enabled
+        public enabled: boolean = VisualConstants.advancedEditing.enabled;
+    // Custom stylesheet
+        public stylesheet: string = VisualConstants.advancedEditing.stylesheet.content;
+    // Custom stylesheet
+        public script: string = VisualConstants.advancedEditing.script.content;
+}

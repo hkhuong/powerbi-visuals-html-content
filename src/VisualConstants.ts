@@ -3,6 +3,10 @@
     
     export const VisualConstants = {
         visual: visual,
+        support: {
+            home: visual.supportUrl,
+            privacy: 'https://github.com/dm-p/powerbi-visuals-html-display/blob/master/doc/privacy_policy.md'
+        },
         contentFormatting: {
             showRawHtml: false,
             font: {
@@ -14,12 +18,27 @@
             separation: 'none',
             hyperlinks: false
         },
+        advancedEditing: {
+            enabled: true,
+            stylesheet: {
+                content: ''
+            },
+            script: {
+                content: ''
+            }
+        },
         dom: {
-            viewerIdSelector: 'htmlViewer',
-            entryClassSelector: 'htmlViewerEntry',
+            viewerIdSelector: 'htmlDisplay',
+            stylesheetIdSelector: 'visualUserStylesheet',
+            stylesheetEditorIdSelector: 'stylesheetEditor',
+            scriptIdSelector: 'visualUserScript',
+            scriptEditorIdSelector: 'scriptEditor',
+            entryClassSelector: 'htmlDisplayEntry',
             statusIdSelector: 'statusMessage',
             contentIdSelector: 'htmlContent',
-            landingIdSelector: 'landingPage',
-            landingPageClassPrefix: 'html-display'
+            landingIdSelector: 'htmlDisplayLandingPage',
+            scrollbars: {
+                autoUpdate: true
+            }
         }
     }
