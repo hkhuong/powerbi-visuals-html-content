@@ -1,9 +1,86 @@
 @import (less) "node_modules/overlayscrollbars/css/OverLayScrollbars.min.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+@powerbi-primary: #f2c811;
+
+@powerbi-bg-light: #eaeaea;
+@powerbi-bg-lighter: #f3f2f1;
+@powerbi-text-primary: #252423;
+@powerbi-text-property: #252423;
+@powerbi-text-secondary: #666666;
+
+@powerbi-input-border: #c8c6c4;
+@powerbi-input-border-focus: #605e5c;
+
+@font-small: 0.8rem;
+
 #htmlDisplay {
     width: 100vw;
     height: 100vh;
+}
+
+#advancedEditor {
+
+    .editors-heading,
+    .visual-heading,
+    .editors {
+        background-color: @powerbi-bg-lighter;
+    }
+
+    h5 {
+        color: @powerbi-text-primary;
+    }
+
+}
+
+
+
+#advancedEditorAccordion {
+
+    .btn,
+    textarea {
+        border-radius: 0;
+    }
+
+    .btn {
+        border: 2px;
+    }
+
+    .btn-link {
+        color: @powerbi-text-property;
+        font-size: @font-small
+    }
+
+    textarea {
+        background-color: #ffffff;
+        border-color: @powerbi-input-border;
+        color: @powerbi-text-property;
+    }
+
+    .btn-primary {
+        background-color: @powerbi-primary;
+        border-color: @powerbi-primary;
+        color: @powerbi-text-primary;
+        transition: color .2s,background-color .2s,border-color .2s;
+    }
+
+    .btn-secondary {
+        background-color: @powerbi-bg-light;
+        border-color: @powerbi-text-secondary;
+        color: @powerbi-text-secondary;
+        transition: color .2s,background-color .2s,border-color .2s;
+    }
+
+    .card-header,
+    .card-body {
+        background-color: @powerbi-bg-lighter;
+    }
+
+    .editor-code {
+        font-family: monospace;
+        font-size: @font-small;
+    }
+
 }
 
 #htmlDisplayLandingPage {

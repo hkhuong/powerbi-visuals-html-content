@@ -31,5 +31,13 @@
     "Status_Invalid_View_Model": "No data available to display.",
     "Status_No_Data": "No data available to display.",
     "Enum_Separation_None": "None",
-    "Enum_Separation_HR": "Horizontal Rule (<hr/>)"
+    "Enum_Separation_HR": "Horizontal Rule (<hr/>)",
+    "Advanced_Editor_Heading_Options": "Advanced Editing Options",
+    "Advanced_Editor_Description_Options": "You can customise the layout of the visual further using the options below. Click Save/Preview to see your changes reflected in the visual output.",
+    "Advanced_Editor_Heading_Stylesheet": "Stylesheet",
+    "Advanced_Editor_Heading_Stylesheet_Description": "You can add valid CSS here to style your visual content.",
+    "Advanced_Editor_Heading_Body": "HTML Body",
+    "Advanced_Editor_Heading_Content": "HTML Content",
+    "Advanced_Editor_Heading_Visual_Preview": "Visual Output",
+    "Advanced_Editor_Description_Visual_Preview": "The output below is what your visual will look like."
 }

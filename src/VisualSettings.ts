@@ -59,4 +59,8 @@ export class AdvancedEditingSettings {
         public stylesheet: string = VisualConstants.advancedEditing.stylesheet.content;
     // Custom stylesheet
         public script: string = VisualConstants.advancedEditing.script.content;
+    // Body content
+        public body: string = VisualConstants.advancedEditing.body.content;
+    // Data row template content
+        public row: string = VisualConstants.advancedEditing.row.content;
 }

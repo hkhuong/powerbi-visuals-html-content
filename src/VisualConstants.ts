@@ -21,16 +21,26 @@
         advancedEditing: {
             enabled: true,
             stylesheet: {
-                content: ''
+                content: '/* Add your valid CSS here */'
             },
             script: {
-                content: ''
+                content: '// Add your custom javascript here'
+            },
+            body: {
+                content: `<div class="htmlDisplayBody">$$dataset$$</div>`
+            },
+            row: {
+                content: '$$content$$'
             }
         },
         dom: {
             viewerIdSelector: 'htmlDisplay',
             stylesheetIdSelector: 'visualUserStylesheet',
-            stylesheetEditorIdSelector: 'stylesheetEditor',
+            advancedEditorAccordionIdSelector: 'advancedEditorAccordion',
+            stylesheetEditorIdSelectorSuffix: 'StylesheetEditor',
+            htmlBodyEditorIdSelectorSuffix: 'HtmlHeaderEditor',
+            htmlContentEditorIdSelectorSuffix: 'HtmlContentEditor',
+            htmlFooterEditorIdSelectorSuffix: 'HtmlFooterEditor',
             scriptIdSelector: 'visualUserScript',
             scriptEditorIdSelector: 'scriptEditor',
             entryClassSelector: 'htmlDisplayEntry',

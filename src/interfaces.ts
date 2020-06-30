@@ -61,7 +61,7 @@
     }
 
 /**
- * React compoentn props used to manage the visual landing page.
+ * React component props used to manage the visual landing page.
  */
     export interface ILandingPageProps {
         // Power BI visual host services
@@ -71,6 +71,10 @@
     }
 
     export interface IAdvancedEditorProps {
+        // Power BI visual host services
+            host: IVisualHost;
+        // Localisation manager instance
+            localisationManager: ILocalizationManager;
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
         // Array of our HTML content raw values
@@ -88,4 +92,16 @@
             htmlContentEntries: string[];
         // Flag confirming we should be using the HTML Content role for our rendering
             usesHtmlContentDataRole: boolean;
+    }
+
+    export interface IAdvancedEditorAreaProps {
+        // Power BI visual host services
+            host: IVisualHost;
+        selectorIdSuffix: string;
+        heading: string;
+        assistiveText?: string;
+        expanded?: boolean;
+        propertyName: string;
+        currentValue: string;
+        defaultValue: string;
     }

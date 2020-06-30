@@ -47,7 +47,9 @@
                 }
                 case isEditMode: {
                     return (
-                        <AdvancedEditor 
+                        <AdvancedEditor
+                            host = { this.props.host }
+                            localisationManager = { this.props.localisationManager }
                             advancedEditing = { advancedEditing }
                             usesHtmlContentDataRole = { data.usesHtmlContentDataRole }
                             htmlContentEntries = { data.htmlContentEntries }
