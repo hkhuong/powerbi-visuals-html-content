@@ -3,6 +3,8 @@
     import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
     import IVisualHost = powerbi.extensibility.visual.IVisualHost;
     import ILocalizationManager = powerbi.extensibility.ILocalizationManager;
+    import DataViewObjects = powerbi.DataViewObjects;
+    import DataViewObject = powerbi.DataViewObject;
 
 // Internal dependencies
     import {
@@ -34,6 +36,8 @@
             advancedEditing?: AdvancedEditingSettings;
         // Visual's content editing properties from the data view (or defaults)
             contentFormatting?: ContentFormattingSettings;
+        // Object metadata, used for checking/persisting
+            objectMetadata?: DataViewObjects;
         // Visual data (mapped from data view)
             data: IVisualData;
     }
@@ -75,6 +79,8 @@
             host: IVisualHost;
         // Localisation manager instance
             localisationManager: ILocalizationManager;
+        // Object metadata, used for checking/persisting
+            advancedEditingObjectMetadata?: DataViewObject;
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
         // Array of our HTML content raw values
@@ -92,16 +98,25 @@
             htmlContentEntries: string[];
         // Flag confirming we should be using the HTML Content role for our rendering
             usesHtmlContentDataRole: boolean;
+        // Visual's advanced editing properties from the data view (or defaults)
+            advancedEditing?: AdvancedEditingSettings;
     }
 
     export interface IAdvancedEditorAreaProps {
         // Power BI visual host services
             host: IVisualHost;
+        // Object metadata, used for checking/persisting
+            advancedEditingObjectMetadata?: DataViewObject;
         selectorIdSuffix: string;
         heading: string;
         assistiveText?: string;
-        expanded?: boolean;
         propertyName: string;
         currentValue: string;
         defaultValue: string;
+        eventKey: number;
+    }
+
+    export interface IAdvandedEditorAreaState {
+        // Whether section is expanded or not
+            expanded: boolean;
     }

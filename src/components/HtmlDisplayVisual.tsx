@@ -28,12 +28,12 @@
         }
 
         render() {
-            console.log('Visual re-render');
             const {
                 isEditMode,
                 canAdvancedEdit,
                 updateOptions,
                 advancedEditing,
+                objectMetadata,
                 data
             } = this.state;
             switch (true) {
@@ -53,6 +53,7 @@
                             advancedEditing = { advancedEditing }
                             usesHtmlContentDataRole = { data.usesHtmlContentDataRole }
                             htmlContentEntries = { data.htmlContentEntries }
+                            advancedEditingObjectMetadata = { objectMetadata?.advancedEditing }
                         />
                     );
                 }
@@ -60,6 +61,7 @@
                     return <VisualContent 
                             usesHtmlContentDataRole = { data.usesHtmlContentDataRole }
                             htmlContentEntries = { data.htmlContentEntries }
+                            advancedEditing = { advancedEditing }
                         />
                 }
                 case data.usesValuesDataRole: {

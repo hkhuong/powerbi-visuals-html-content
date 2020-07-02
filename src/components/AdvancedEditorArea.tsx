@@ -1,61 +1,78 @@
+// Power BI dependencies
+    import powerbi from 'powerbi-visuals-api';
+    import VisualObjectInstancesToPersist = powerbi.VisualObjectInstancesToPersist;
+
 // External dependencies
     import * as React from 'react';
+    import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+    import { 
+        faChevronDown,
+        faChevronUp
+    } from '@fortawesome/free-solid-svg-icons';
+    import {
+        Accordion
+    } from 'react-bootstrap';
 
 // Internal dependencies
     import {
         VisualConstants
     } from '../VisualConstants';
     import {
-        IAdvancedEditorAreaProps, IAdvancedEditorProps
+        IAdvancedEditorAreaProps,
+        IAdvandedEditorAreaState
     } from '../interfaces';
-import powerbi from 'powerbi-visuals-api';
 
-    export class AdvancedEditorArea extends React.Component<IAdvancedEditorAreaProps, {}> {
+    export class AdvancedEditorArea extends React.Component<IAdvancedEditorAreaProps, IAdvandedEditorAreaState> {
 
         private textAreaRef: React.RefObject<HTMLTextAreaElement>
 
         constructor(props: IAdvancedEditorAreaProps) {
             super(props);
-            this.handleResetClick = this.handleResetClick.bind(this);
             this.textAreaRef = React.createRef();
+            this.state = {
+                expanded: false
+            }
+            this.handleApplyClick = this.handleApplyClick.bind(this);
+            this.handleResetClick = this.handleResetClick.bind(this);
+            this.handleAccordionClick = this.handleAccordionClick.bind(this);
         }
 
         render() {
             const   headingId = `heading${ this.props.selectorIdSuffix }`,
                     collapseId = `collapse${ this.props.selectorIdSuffix }`,
-                    textAreaId = `text${ this.props.selectorIdSuffix }`;
+                    textAreaId = `text${ this.props.selectorIdSuffix }`,
+                    { expanded } = this.state;
             return(
                 <div className = 'card p-0 rounded-0 border-top-0 border-left-0 border-right-0 border-bottom'>
                     <div
                         className ='card-header p-0'
                         id = { headingId }
+                        onClick = { this.handleAccordionClick }
                     >
-                        <div
-                            className = 'btn-toolbar justify-content-between'
-                            role = 'toolbar'
-                            aria-label = 'Advanced editor component options'
+                        <button
+                            className = 'btn btn-link btn-block text-left pl-2'
+                            data-toggle = { 'collapse' }
+                            data-target = { `#${ collapseId }` }
+                            aria-expanded = { expanded }
+                            aria-controls = { collapseId }
                         >
-                            <button
-                                className = 'btn btn-link btn-block text-left pl-2'
-                                data-toggle = { 'collapse' }
-                                data-target = { `#${ collapseId }` }
-                                aria-expanded = { this.props.expanded }
-                                aria-controls = { collapseId }
-                            >
-                                { this.props.heading }
-                            </button>
-                        </div>
+                            <FontAwesomeIcon 
+                                icon = { expanded ? faChevronUp : faChevronDown }
+                                size = 'lg'
+                            /> &nbsp;
+                            { this.props.heading }
+                        </button>
                     </div>
                     <div
                         id = { collapseId }
-                        className = { `collapse ${this.props.expanded && 'show' || '' }` }
+                        className = { `${ expanded && 'collapse show' || 'collapse' }` }
                         aria-labelledby = { headingId }
                         data-parent = { `#${ VisualConstants.dom.advancedEditorAccordionIdSelector }` }
                     >
                         <div className = 'card-body pl-3 pt-1 border-top'>
-                            <small className = 'text-muted editor-assistive-text'>
+                            <p className = 'text-muted editor-assistive-text small'>
                                 { this.props.assistiveText }
-                            </small>
+                            </p>
                             <p>
                                 <textarea
                                     id = { textAreaId }
@@ -88,12 +105,19 @@ import powerbi from 'powerbi-visuals-api';
             );
         }
 
+            private handleAccordionClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+                e.preventDefault();
+                this.setState({
+                    expanded: !this.state.expanded
+                });
+            }
+
         /**
          * Resets the text area content back to the default, and sets property in the visual.
          *
          * @param e - Click event
          */
-            handleApplyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            private handleApplyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 const
                     defaultValue = this.textAreaRef.current.value,
@@ -107,7 +131,7 @@ import powerbi from 'powerbi-visuals-api';
          *
          * @param e - Click event
          */
-            handleResetClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            private handleResetClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 const
                     defaultValue = this.props.defaultValue,
@@ -120,13 +144,13 @@ import powerbi from 'powerbi-visuals-api';
         /**
          * Gets an empty metadata object so that we can populate it with a value from the text box, or reset it.
          */
-            private getNewObjectInstance(): powerbi.VisualObjectInstancesToPersist {
+            private getNewObjectInstance(): VisualObjectInstancesToPersist {
                 return {
                     replace: [
                         {
                             objectName: 'advancedEditing',
                             selector: null,
-                            properties: {}
+                            properties: this.props.advancedEditingObjectMetadata || {}
                         }
                     ]
                 };

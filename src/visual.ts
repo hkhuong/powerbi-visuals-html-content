@@ -86,6 +86,7 @@
                                 isEditMode: options.viewMode === ViewMode.Edit && options.editMode === EditMode.Advanced && options.isInFocus,
                                 contentFormatting: this.settings.contentFormatting,
                                 advancedEditing: this.settings.advancedEditing,
+                                objectMetadata: options.dataViews[0] && options.dataViews[0].metadata && options.dataViews[0].metadata.objects,
                                 data: DataUtils.getProcessedDataView(options.dataViews)
                             };
                             HtmlDisplayVisual.update(state);

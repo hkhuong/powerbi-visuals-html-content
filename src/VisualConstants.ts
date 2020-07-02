@@ -1,5 +1,11 @@
 // Internal dependencies
     import { visual } from '../pbiviz.json';
+
+    const
+        userVisualHtmlBodyClass = 'htmlDisplayBody',
+        userVisualHtmlDataRowClass = 'htmlDisplayDataRow',
+        dataSetToken = '{{dataset}}',
+        dataRowToken = '{{row}}';
     
     export const VisualConstants = {
         visual: visual,
@@ -27,10 +33,12 @@
                 content: '// Add your custom javascript here'
             },
             body: {
-                content: `<div class="htmlDisplayBody">$$dataset$$</div>`
+                dataSetToken: dataSetToken,
+                content: `<div class="${userVisualHtmlBodyClass}">\n  ${dataSetToken}\n</div>`
             },
             row: {
-                content: '$$content$$'
+                dataRowToken: dataRowToken,
+                content: `<div class="${userVisualHtmlDataRowClass}">\n  ${dataRowToken}\n</div>`
             }
         },
         dom: {

@@ -133,6 +133,24 @@
                         "text": true
                     }
                 },
+                "body": {
+                    "displayNameKey": "Objects_ContentFormatting_Body",
+                    "descriptionKey": "Objects_ContentFormatting_Body_Description",
+                    "displayName": "Body",
+                    "description": "Body description.",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "row": {
+                    "displayNameKey": "Objects_ContentFormatting_Row",
+                    "descriptionKey": "Objects_ContentFormatting_Row_Description",
+                    "displayName": "Row",
+                    "description": "Row description.",
+                    "type": {
+                        "text": true
+                    }
+                },
                 "script": {
                     "displayNameKey": "Objects_ContentFormatting_Script",
                     "descriptionKey": "Objects_ContentFormatting_Script_Description",

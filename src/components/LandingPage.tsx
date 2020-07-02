@@ -52,7 +52,7 @@
                                     </small>
                                 </span>
                             </div>
-                            <div className = 'card-body'>
+                            <div className = 'card-body small'>
                                 <p>{ localisationManager.getDisplayName('Landing_Page_Overview_1') }</p>
                                 <p>
                                     { localisationManager.getDisplayName('Landing_Page_Overview_2') }
