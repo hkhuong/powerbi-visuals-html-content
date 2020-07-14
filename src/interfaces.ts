@@ -39,29 +39,37 @@
         // Object metadata, used for checking/persisting
             objectMetadata?: DataViewObjects;
         // Visual data (mapped from data view)
-            data: IVisualData;
+            data: IVisualValueData;
     }
 
 /**
  * The data component and flags required for the visual view model.
  */
-    export interface IVisualData {
+    export interface IVisualValueData {
         // Confirms the supplied data view is valid
             isDataViewValid: boolean;
-        // Confirms that there actually data supplied from the visual once mapped
+        // Confirms that there are actually data supplied from the visual once mapped
             hasData: boolean;
         // The index of the HTML Content data role from the data view metadata
         // (used to ensure that we render the correct column for this use case)
-            contentDataRoleIndex: number;
-        // Flag confirming we should be using the HTML Content role for our rendering
-            usesHtmlContentDataRole: boolean;
-        // The index of the Values data role from the data view metadata
-        // (we just need to know one exists to switch our workflow)
             valuesDataRoleIndex: number;
-        // Flag confirming we should be using the Values role for our rendering
-            usesValuesDataRole: boolean;
-        // Array of our HTML content raw values
-            htmlContentEntries: string[];
+        // Array of our values data role fields/measures
+            visualData: IVisualData;
+    }
+
+    export interface IVisualData {
+        columns: ITableColumn[],
+        values?: IVisualValues[]
+    }
+
+    export interface ITableColumn {
+        name: string;
+        index: number;
+        isMeasure: boolean;
+    }
+
+    export interface IVisualValues {
+        [key: string]: string;
     }
 
 /**
@@ -83,10 +91,8 @@
             advancedEditingObjectMetadata?: DataViewObject;
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
-        // Array of our HTML content raw values
-            htmlContentEntries: string[];
-        // Flag confirming we should be using the HTML Content role for our rendering
-            usesHtmlContentDataRole: boolean;
+        // Derived visual data
+            visualData: IVisualData;
     }
 
     export interface IAdvancedEditorState {
@@ -94,12 +100,10 @@
     }
 
     export interface IVisualContentProps {
-        // Array of our HTML content raw values
-            htmlContentEntries: string[];
-        // Flag confirming we should be using the HTML Content role for our rendering
-            usesHtmlContentDataRole: boolean;
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
+        // Derived visual data
+            visualData: IVisualData;
     }
 
     export interface IAdvancedEditorAreaProps {
@@ -114,6 +118,8 @@
         currentValue: string;
         defaultValue: string;
         eventKey: number;
+        editorMode: string;
+        columns: ITableColumn[];
     }
 
     export interface IAdvandedEditorAreaState {

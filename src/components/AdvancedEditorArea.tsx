@@ -4,14 +4,18 @@
 
 // External dependencies
     import * as React from 'react';
+    import useRef = React.useRef;
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
     import { 
         faChevronDown,
         faChevronUp
     } from '@fortawesome/free-solid-svg-icons';
-    import {
-        Accordion
-    } from 'react-bootstrap';
+    import AceEditor from 'react-ace';
+    import 'ace-builds/src-noconflict/mode-html';
+    import 'ace-builds/src-noconflict/mode-css';
+    import 'ace-builds/src-noconflict/theme-chrome';
+    import 'ace-builds/src-noconflict/ext-language_tools';
+    import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
 
 // Internal dependencies
     import {
@@ -24,7 +28,7 @@
 
     export class AdvancedEditorArea extends React.Component<IAdvancedEditorAreaProps, IAdvandedEditorAreaState> {
 
-        private textAreaRef: React.RefObject<HTMLTextAreaElement>
+        private textAreaRef: React.RefObject<AceEditor>
 
         constructor(props: IAdvancedEditorAreaProps) {
             super(props);
@@ -42,6 +46,7 @@
                     collapseId = `collapse${ this.props.selectorIdSuffix }`,
                     textAreaId = `text${ this.props.selectorIdSuffix }`,
                     { expanded } = this.state;
+
             return(
                 <div className = 'card p-0 rounded-0 border-top-0 border-left-0 border-right-0 border-bottom'>
                     <div
@@ -74,12 +79,18 @@
                                 { this.props.assistiveText }
                             </p>
                             <p>
-                                <textarea
-                                    id = { textAreaId }
-                                    className = 'w-100 form-control editor-code'
+                                <AceEditor
+                                    className = 'w-100'
+                                    mode = { this.props.editorMode }
+                                    theme = 'chrome'
                                     defaultValue = { this.props.currentValue }
-                                    rows = { 10 }
+                                    name = { textAreaId }
                                     ref = { this.textAreaRef }
+                                    setOptions = {{
+                                        useWorker: false,
+                                        enableBasicAutocompletion: true,
+                                        enableLiveAutocompletion: true,
+                                    }}
                                 />
                             </p>
                             <div className = 'text-right'>
@@ -105,6 +116,21 @@
             );
         }
 
+        componentDidUpdate() {
+            console.log(this.textAreaRef.current.editor.completers);
+            addCompleter({
+                getCompletions: (editor, session, pos, prefix, callback) => {
+                    callback(null, this.props.columns.map((dr) => ({
+                        name: `{{${dr.name}}}`,
+                        value: `{{${dr.name}}}`,
+                        caption: `{{${dr.name}}}`,
+                        meta: `${dr.isMeasure ? 'Measure' : 'Column'}`,
+                        score: 1
+                    })));
+                }
+            })
+        }
+
             private handleAccordionClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
                 e.preventDefault();
                 this.setState({
@@ -120,7 +146,7 @@
             private handleApplyClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 const
-                    defaultValue = this.textAreaRef.current.value,
+                    defaultValue = this.textAreaRef.current.editor.getValue(),
                     changes = this.getNewObjectInstance();
                 changes.replace[0].properties[this.props.propertyName] = defaultValue;
                 this.props.host.persistProperties(changes);
@@ -137,7 +163,7 @@
                     defaultValue = this.props.defaultValue,
                     changes = this.getNewObjectInstance();
                 changes.replace[0].properties[this.props.propertyName] = defaultValue;
-                this.textAreaRef.current.value = defaultValue;
+                this.textAreaRef.current.editor.setValue(defaultValue);
                 this.props.host.persistProperties(changes);
             };
 

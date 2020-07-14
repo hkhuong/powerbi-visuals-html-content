@@ -6,15 +6,15 @@
         IVisualContentProps
     } from '../interfaces';
     import { VisualConstants } from '../VisualConstants';
-    import VisualIFrame from './VisualIFrame';
 
     export class VisualContent extends React.Component<IVisualContentProps, {}> {
 
         render() {
             console.log('Content-re-render');
-            console.log(this.props);
+            // console.log(this.props);
             return (
-                <div id = 'customHtmlContent'
+                <div
+                    id = 'customHtmlContent'
                     dangerouslySetInnerHTML = {{
                         __html: this.getEnclosedBodyContent()
                     }}
@@ -28,18 +28,16 @@
         }
 
         private getBodyRowContent() {
-            switch (true) {
-                case this.props.usesHtmlContentDataRole: {
-                    return this.renderHtmlContentDataRole().join('');
-                }
-            }
+            return this.renderValues().join('');
         }
 
-        private renderHtmlContentDataRole() {
-            console.log(this.state);
-            return this.props.htmlContentEntries.map((c) => (
+        private renderValues() {
+            // console.log(this.state);
+            
+            return this.props.visualData.values.map((c) => (
                     (this.props.advancedEditing?.row || VisualConstants.advancedEditing.body.content)
-                        .replace(VisualConstants.advancedEditing.row.dataRowToken, c)
+                        .split(VisualConstants.advancedEditing.row.dataRowToken)
+                        .join(Object.keys(c).map((k) => c[k]).join(''))
                 )
             );
         }

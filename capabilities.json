@@ -5,7 +5,7 @@
             "descriptionKey": "Roles_HTML_Content_Description",
             "displayName": "HTML Content",
             "description": "HTML Content description.",
-            "name": "content",
+            "name": "values",
             "kind": "GroupingOrMeasure"
         },
         {
@@ -15,14 +15,6 @@
             "description": "Sampling description.",
             "name": "sampling",
             "kind": "Grouping"
-        },
-        {
-            "displayNameKey": "Roles_Values",
-            "descriptionKey": "Roles_Values_Description",
-            "displayName": "Values",
-            "description": "Values description.",
-            "name": "values",
-            "kind": "GroupingOrMeasure"
         }
     ],
     "objects": {
@@ -165,24 +157,6 @@
     },
     "dataViewMappings": [
         {
-            "conditions": [
-                {
-                    "content": {
-                        "max": 1
-                    },
-                    "values": {
-                        "max": 0
-                    }
-                },
-                {
-                    "values": {
-                        "min": 1
-                    },
-                    "content": {
-                        "max": 0
-                    }
-                }
-            ],
             "table": {
                 "rows": {
                     "select": [
@@ -193,17 +167,14 @@
                         },
                         {
                             "for": {
-                                "in": "content"
-                            }
-                        },
-                        {
-                            "for": {
                                 "in": "values"
                             }
                         }
                     ],
                     "dataReductionAlgorithm": {
-                        "top": {}
+                        "top": {
+                            
+                        }
                     }
                 }
             }

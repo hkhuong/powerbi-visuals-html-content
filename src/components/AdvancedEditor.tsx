@@ -3,6 +3,7 @@
     import {
         Accordion
     } from 'react-bootstrap';
+    import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 
 // Internal dependencies
     import {
@@ -24,7 +25,7 @@
             } = this.props;
             return (
                 <div
-                    className = 'container-fluid h-100 border'
+                    className = 'container-fluid vh-100 border d-flex flex-column flex-grow-1 overflow-hidden'
                     id = 'advancedEditor'
                 >
                     {/* Outer layout  */}
@@ -46,66 +47,77 @@
                             </p>
                         </div>
                     </div>
-                    <div className = 'row h-100 border-bottom'>
-                        <div className = 'col-4 editors p-0 border-right'>
+                    <div className = 'row mh-100 border-bottom flex-grow-1 overflow-hidden p-0'>
+                        <div className = 'col-4 editors p-0 border-right overflow-auto os-host-flexbox mh-100 mw-100'>
                             <div className = 'container p-0'>
                                 <div className = 'row m-0'>
                                     <div className = 'col p-0'>
-                                        <Accordion
-                                            id = { VisualConstants.dom.advancedEditorAccordionIdSelector }
-                                            className = 'h-100'
-                                        >
-                                            <AdvancedEditorArea
-                                                host = { this.props.host }
-                                                selectorIdSuffix = { VisualConstants.dom.stylesheetEditorIdSelectorSuffix }
-                                                heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Stylesheet') }
-                                                assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Stylesheet_Description') }
-                                                propertyName = 'stylesheet'
-                                                currentValue = { this.props.advancedEditing.stylesheet }
-                                                defaultValue = { VisualSettings.getDefault()['advancedEditing'].stylesheet }
-                                                advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
-                                                eventKey = { 0 }
-                                            />
-                                            <AdvancedEditorArea
-                                                host = { this.props.host }
-                                                selectorIdSuffix = { VisualConstants.dom.htmlBodyEditorIdSelectorSuffix }
-                                                heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Body') }
-                                                assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Body_Description') }
-                                                propertyName = 'body'
-                                                currentValue = { this.props.advancedEditing.body }
-                                                defaultValue = { VisualSettings.getDefault()['advancedEditing'].body }
-                                                advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
-                                                eventKey = { 1 }
-                                            />
-                                            <AdvancedEditorArea
-                                                host = { this.props.host }
-                                                selectorIdSuffix = { VisualConstants.dom.htmlContentEditorIdSelectorSuffix }
-                                                heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Row') }
-                                                assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Row_Description') }
-                                                propertyName = 'row'
-                                                currentValue = { this.props.advancedEditing.row }
-                                                defaultValue = { VisualSettings.getDefault()['advancedEditing'].row }
-                                                advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
-                                                eventKey = { 2 }
-                                            />
-                                        </Accordion>
+                                        {/* <OverlayScrollbarsComponent
+                                            options = { VisualConstants.dom.scrollbars }
+                                        > */}
+                                            <Accordion
+                                                id = { VisualConstants.dom.advancedEditorAccordionIdSelector }
+                                            >
+                                                <AdvancedEditorArea
+                                                    host = { this.props.host }
+                                                    selectorIdSuffix = { VisualConstants.dom.stylesheetEditorIdSelectorSuffix }
+                                                    heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Stylesheet') }
+                                                    assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Stylesheet_Description') }
+                                                    propertyName = 'stylesheet'
+                                                    currentValue = { this.props.advancedEditing.stylesheet }
+                                                    defaultValue = { VisualSettings.getDefault()['advancedEditing'].stylesheet }
+                                                    advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
+                                                    eventKey = { 0 }
+                                                    editorMode = 'css'
+                                                    columns = { null }
+                                                />
+                                                <AdvancedEditorArea
+                                                    host = { this.props.host }
+                                                    selectorIdSuffix = { VisualConstants.dom.htmlBodyEditorIdSelectorSuffix }
+                                                    heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Body') }
+                                                    assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Body_Description') }
+                                                    propertyName = 'body'
+                                                    currentValue = { this.props.advancedEditing.body }
+                                                    defaultValue = { VisualSettings.getDefault()['advancedEditing'].body }
+                                                    advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
+                                                    eventKey = { 1 }
+                                                    editorMode = 'html'
+                                                    columns = { this.props.visualData.columns }
+                                                />
+                                                <AdvancedEditorArea
+                                                    host = { this.props.host }
+                                                    selectorIdSuffix = { VisualConstants.dom.htmlContentEditorIdSelectorSuffix }
+                                                    heading = { localisationManager.getDisplayName('Advanced_Editor_Heading_Row') }
+                                                    assistiveText = { localisationManager.getDisplayName('Advanced_Editor_Heading_Row_Description') }
+                                                    propertyName = 'row'
+                                                    currentValue = { this.props.advancedEditing.row }
+                                                    defaultValue = { VisualSettings.getDefault()['advancedEditing'].row }
+                                                    advancedEditingObjectMetadata = { this.props.advancedEditingObjectMetadata }
+                                                    eventKey = { 2 }
+                                                    editorMode = 'html'
+                                                    columns = { this.props.visualData.columns }
+                                                />
+                                            </Accordion>
+                                        {/* </OverlayScrollbarsComponent> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className = 'col visual'>
-                            <div className = 'container p-2'>
-                                <div className = 'row'>
-                                    <div className = 'col'>
-                                        <VisualContent 
-                                            htmlContentEntries = { this.props.htmlContentEntries }
-                                            usesHtmlContentDataRole = { this.props.usesHtmlContentDataRole }
-                                            advancedEditing = { this.props.advancedEditing }
-                                        />
+                        <div className = 'col visual mh-100 mw-100 overflow-auto os-host-flexbox p-0'>
+                            <OverlayScrollbarsComponent
+                                options = { VisualConstants.dom.scrollbars }
+                            >
+                                <div className = 'container'>
+                                    <div className = 'row'>
+                                        <div className = 'col'>
+                                            <VisualContent 
+                                                visualData = { this.props.visualData }
+                                                advancedEditing = { this.props.advancedEditing }
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                           
+                            </OverlayScrollbarsComponent>
                         </div>
                     </div>
                 </div>

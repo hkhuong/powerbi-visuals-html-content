@@ -89,6 +89,7 @@
                                 objectMetadata: options.dataViews[0] && options.dataViews[0].metadata && options.dataViews[0].metadata.objects,
                                 data: DataUtils.getProcessedDataView(options.dataViews)
                             };
+                            console.log('State', state);
                             HtmlDisplayVisual.update(state);
 
                         // Render our content

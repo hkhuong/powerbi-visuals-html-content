@@ -1,5 +1,6 @@
 // External dependencies
     import * as React from 'react';
+    import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 
 // Internal dependencies
     import {
@@ -51,21 +52,22 @@
                             host = { this.props.host }
                             localisationManager = { this.props.localisationManager }
                             advancedEditing = { advancedEditing }
-                            usesHtmlContentDataRole = { data.usesHtmlContentDataRole }
-                            htmlContentEntries = { data.htmlContentEntries }
+                            visualData = { data.visualData }
                             advancedEditingObjectMetadata = { objectMetadata?.advancedEditing }
                         />
                     );
                 }
-                case data.usesHtmlContentDataRole: {
-                    return <VisualContent 
-                            usesHtmlContentDataRole = { data.usesHtmlContentDataRole }
-                            htmlContentEntries = { data.htmlContentEntries }
+                case data.isDataViewValid: {
+                    return (
+                    <OverlayScrollbarsComponent
+                        options = { VisualConstants.dom.scrollbars }
+                    >
+                        <VisualContent
+                            visualData = { data.visualData }
                             advancedEditing = { advancedEditing }
                         />
-                }
-                case data.usesValuesDataRole: {
-                    return 'Render values as content using templates.';
+                    </OverlayScrollbarsComponent>
+                    )
                 }
             }
 
