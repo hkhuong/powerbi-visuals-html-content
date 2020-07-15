@@ -116,6 +116,7 @@
                                             <VisualContent 
                                                 visualData = { this.props.visualData }
                                                 advancedEditing = { this.props.advancedEditing }
+                                                contentFormatting = { this.props.contentFormatting }
                                                 host = { this.props.host }
                                             />
                                         {/* </div>

@@ -34,6 +34,7 @@
                 canAdvancedEdit,
                 updateOptions,
                 advancedEditing,
+                contentFormatting,
                 objectMetadata,
                 data
             } = this.state;
@@ -52,6 +53,7 @@
                             host = { this.props.host }
                             localisationManager = { this.props.localisationManager }
                             advancedEditing = { advancedEditing }
+                            contentFormatting = { contentFormatting }
                             visualData = { data.visualData }
                             advancedEditingObjectMetadata = { objectMetadata?.advancedEditing }
                         />
@@ -66,6 +68,7 @@
                             <VisualContent
                                 visualData = { data.visualData }
                                 advancedEditing = { advancedEditing }
+                                contentFormatting = { contentFormatting }
                                 host = { this.props.host }
                             />
                         </div>

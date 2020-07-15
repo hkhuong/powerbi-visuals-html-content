@@ -9,7 +9,8 @@
 // Internal dependencies
     import {
         AdvancedEditingSettings,
-        ContentFormattingSettings
+        ContentFormattingSettings,
+        VisualSettings
     } from './VisualSettings';
 
 /**
@@ -57,11 +58,19 @@
             visualData: IVisualData;
     }
 
+/**
+ * Processed visual data and column metadata for rendering
+ */
     export interface IVisualData {
-        columns: ITableColumn[],
-        values?: IVisualValues[]
+        // All column information that we need to know about
+            columns: ITableColumn[],
+        // Raw data values for each column
+            values?: IVisualValues[]
     }
 
+/**
+ * Our own column metadata needed to render individual values within the visual
+ */
     export interface ITableColumn {
         name: string;
         index: number;
@@ -69,6 +78,9 @@
         isMeasure: boolean;
     }
 
+/**
+ * Key/value pairs of data row info
+ */
     export interface IVisualValues {
         [key: string]: any;
     }
@@ -92,6 +104,8 @@
             advancedEditingObjectMetadata?: DataViewObject;
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
+        // Visual's content editing properties from the data view (or defaults)
+            contentFormatting?: ContentFormattingSettings;
         // Derived visual data
             visualData: IVisualData;
     }
@@ -103,6 +117,8 @@
     export interface IVisualContentProps {
         // Visual's advanced editing properties from the data view (or defaults)
             advancedEditing?: AdvancedEditingSettings;
+        // Visual's content editing properties from the data view (or defaults)
+            contentFormatting?: ContentFormattingSettings;
         // Derived visual data
             visualData: IVisualData;
         // Power BI visual host services

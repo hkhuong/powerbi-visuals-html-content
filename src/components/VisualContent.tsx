@@ -13,15 +13,31 @@
     export class VisualContent extends React.Component<IVisualContentProps, {}> {
 
         render() {
-            return (
-                <div
-                    id = 'customHtmlContent'
-                    className = 'os-host-flexbox'
-                    dangerouslySetInnerHTML = {{
-                        __html: this.getEnclosedBodyContent()
-                    }}
-                />
-            );
+            console.log(this.props.contentFormatting?.showRawHtml);
+            if (this.props.contentFormatting?.showRawHtml) {
+                return (
+                    <div
+                        id = 'customHtmlContent'
+                        className = 'os-host-flexbox'
+                    >
+                        <code
+                            id = 'rawHtmlContent'
+                        >
+                            { this.getEnclosedBodyContent() }
+                        </code>
+                    </div>
+                )
+            } else {
+                return (
+                    <div
+                        id = 'customHtmlContent'
+                        className = 'os-host-flexbox'
+                        dangerouslySetInnerHTML = {{
+                            __html: this.getEnclosedBodyContent()
+                        }}
+                    />
+                );
+            }
         }
 
     /**
