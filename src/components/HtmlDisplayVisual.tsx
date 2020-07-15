@@ -66,6 +66,7 @@
                             <VisualContent
                                 visualData = { data.visualData }
                                 advancedEditing = { advancedEditing }
+                                host = { this.props.host }
                             />
                         </div>
                     </OverlayScrollbarsComponent>

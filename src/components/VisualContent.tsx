@@ -62,7 +62,7 @@
                         rowContent = this.replaceAllTokenOccurrences(
                             rowContent,
                             `{{${v}}}`,
-                            valueFormatter.format(c[v], format?.format)
+                            valueFormatter.format(c[v], format?.format, true, this.props.host.locale)
                         );
                     });
                 return rowContent;

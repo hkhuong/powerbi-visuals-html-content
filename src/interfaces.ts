@@ -105,6 +105,8 @@
             advancedEditing?: AdvancedEditingSettings;
         // Derived visual data
             visualData: IVisualData;
+        // Power BI visual host services
+            host: IVisualHost;
     }
 
     export interface IAdvancedEditorAreaProps {
