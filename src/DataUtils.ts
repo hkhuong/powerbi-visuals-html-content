@@ -78,7 +78,8 @@
                         .map((c, ci) => ({
                                     name: c.displayName,
                                     index: c.index,
-                                    isMeasure: c.isMeasure
+                                    isMeasure: c.isMeasure,
+                                    format: c.format
                                 })
                             ),
                     values = table.rows.map((r, ri) => {
@@ -86,7 +87,7 @@
                             r.forEach((c, ci) => {
                                 const col = columns.find((col) => col.index === ci);
                                 if (col) {
-                                    row[col.name] = `${c}`
+                                    row[col.name] = c
                                 }
                             });
                             return row;

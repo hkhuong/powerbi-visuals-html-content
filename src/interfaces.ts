@@ -65,11 +65,12 @@
     export interface ITableColumn {
         name: string;
         index: number;
+        format?: string;
         isMeasure: boolean;
     }
 
     export interface IVisualValues {
-        [key: string]: string;
+        [key: string]: any;
     }
 
 /**
@@ -111,6 +112,8 @@
             host: IVisualHost;
         // Object metadata, used for checking/persisting
             advancedEditingObjectMetadata?: DataViewObject;
+        // Localisation manager instance
+            localisationManager: ILocalizationManager;
         selectorIdSuffix: string;
         heading: string;
         assistiveText?: string;

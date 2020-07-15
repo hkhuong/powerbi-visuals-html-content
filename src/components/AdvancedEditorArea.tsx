@@ -15,6 +15,7 @@
     import 'ace-builds/src-noconflict/mode-css';
     import 'ace-builds/src-noconflict/theme-chrome';
     import 'ace-builds/src-noconflict/ext-language_tools';
+    import * as langTools from 'ace-builds/src-noconflict/ext-language_tools';
     import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
 
 // Internal dependencies
@@ -79,6 +80,24 @@
                                 { this.props.assistiveText }
                             </p>
                             <p>
+                                <div className = 'text-right'>
+                                    <button
+                                        type = 'button'
+                                        className = 'btn btn-sm btn-primary mr-1'
+                                        onClick = { this.handleApplyClick }
+                                    >
+                                            Apply
+                                    </button>
+
+                                    <button
+                                        className = 'btn btn-link'
+                                        onClick = { this.handleResetClick }
+                                    >
+                                            Reset
+                                    </button>
+                                </div>
+                            </p>
+                            <p>
                                 <AceEditor
                                     className = 'w-100'
                                     mode = { this.props.editorMode }
@@ -87,49 +106,22 @@
                                     name = { textAreaId }
                                     ref = { this.textAreaRef }
                                     setOptions = {{
+                                        tabSize: 2,
                                         useWorker: false,
                                         enableBasicAutocompletion: true,
                                         enableLiveAutocompletion: true,
                                     }}
                                 />
                             </p>
-                            <div className = 'text-right'>
-                                <button
-                                    type = 'button'
-                                    className = 'btn btn-sm btn-primary mr-1'
-                                    onClick = { this.handleApplyClick }
-                                >
-                                        Apply
-                                </button>
-
-                                <button
-                                    className = 'btn btn-link'
-                                    onClick = { this.handleResetClick }
-                                >
-                                        Reset
-                                </button>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
             );
         }
 
-        componentDidUpdate() {
-            console.log(this.textAreaRef.current.editor.completers);
-            addCompleter({
-                getCompletions: (editor, session, pos, prefix, callback) => {
-                    callback(null, this.props.columns.map((dr) => ({
-                        name: `{{${dr.name}}}`,
-                        value: `{{${dr.name}}}`,
-                        caption: `{{${dr.name}}}`,
-                        meta: `${dr.isMeasure ? 'Measure' : 'Column'}`,
-                        score: 1
-                    })));
-                }
-            })
-        }
+            componentDidUpdate() {
+                this.updateAutoCompletion();            
+            }
 
             private handleAccordionClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
                 e.preventDefault();
@@ -180,6 +172,54 @@
                         }
                     ]
                 };
+            }
+
+        /**
+         * Manage the autocompletion in each editor, based on what role it's performing.
+         */
+            private updateAutoCompletion() {
+                // This is messy, but will remove the custom completer if it's already been added
+                    if (this.textAreaRef.current.editor.completers.length > 3) {
+                        this.textAreaRef.current.editor.completers.pop();
+                    }
+                    let tokens = [];
+
+                    switch (this.props.propertyName) {
+                        case 'body': {
+                            tokens.push({
+                                name: `${VisualConstants.advancedEditing.body.dataSetToken}`,
+                                value: `${VisualConstants.advancedEditing.body.dataSetToken}`,
+                                caption: this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Caption_Dataset'),
+                                meta: this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Metadata_Dataset')
+                            });
+                            break;
+                        }
+                        case 'row': {
+                            tokens = this.props.columns.map((dr, dri) => ({
+                                            name: `{{${dr.name}}}`,
+                                            value: `{{${dr.name}}}`,
+                                            caption: `${dr.name}`,
+                                            meta: `${dr.isMeasure 
+                                                    ?   this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Caption_Measure')
+                                                    :   this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Caption_Column')
+                                                }`,
+                                            score: dri
+                                        })
+                                    );
+                            tokens.push({
+                                name: `${VisualConstants.advancedEditing.row.dataRowToken}`,
+                                value: `${VisualConstants.advancedEditing.row.dataRowToken}`,
+                                caption: this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Caption_Row'),
+                                meta: this.props.localisationManager.getDisplayName('Advanced_Editor_Completer_Metadata_Row')
+                            });
+                            break;
+                        }
+                    }
+                    addCompleter({
+                        getCompletions: (editor, session, pos, prefix, callback) => {
+                            callback(null, tokens);
+                        }
+                    });
             }
 
     }

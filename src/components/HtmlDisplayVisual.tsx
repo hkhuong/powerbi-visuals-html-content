@@ -62,10 +62,12 @@
                     <OverlayScrollbarsComponent
                         options = { VisualConstants.dom.scrollbars }
                     >
-                        <VisualContent
-                            visualData = { data.visualData }
-                            advancedEditing = { advancedEditing }
-                        />
+                        <div id = 'customHtmlContainer'>
+                            <VisualContent
+                                visualData = { data.visualData }
+                                advancedEditing = { advancedEditing }
+                            />
+                        </div>
                     </OverlayScrollbarsComponent>
                     )
                 }

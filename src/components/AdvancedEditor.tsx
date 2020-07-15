@@ -70,6 +70,7 @@
                                                     eventKey = { 0 }
                                                     editorMode = 'css'
                                                     columns = { null }
+                                                    localisationManager = { this.props.localisationManager }
                                                 />
                                                 <AdvancedEditorArea
                                                     host = { this.props.host }
@@ -83,6 +84,7 @@
                                                     eventKey = { 1 }
                                                     editorMode = 'html'
                                                     columns = { this.props.visualData.columns }
+                                                    localisationManager = { this.props.localisationManager }
                                                 />
                                                 <AdvancedEditorArea
                                                     host = { this.props.host }
@@ -96,6 +98,7 @@
                                                     eventKey = { 2 }
                                                     editorMode = 'html'
                                                     columns = { this.props.visualData.columns }
+                                                    localisationManager = { this.props.localisationManager }
                                                 />
                                             </Accordion>
                                         {/* </OverlayScrollbarsComponent> */}
@@ -103,20 +106,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div className = 'col visual mh-100 mw-100 overflow-auto os-host-flexbox p-0'>
+                        <div className = 'col visual mh-100 mw-100 overflow-auto p-0'>
                             <OverlayScrollbarsComponent
-                                options = { VisualConstants.dom.scrollbars }
+                                options = { {} }
                             >
-                                <div className = 'container'>
+                                {/* <div className = 'container'>
                                     <div className = 'row'>
-                                        <div className = 'col'>
+                                        <div className = 'col'> */}
                                             <VisualContent 
                                                 visualData = { this.props.visualData }
                                                 advancedEditing = { this.props.advancedEditing }
                                             />
-                                        </div>
+                                        {/* </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </OverlayScrollbarsComponent>
                         </div>
                     </div>
