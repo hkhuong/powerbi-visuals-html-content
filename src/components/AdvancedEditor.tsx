@@ -106,11 +106,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div className = 'col visual mh-100 mw-100 overflow-auto p-0'>
+                        <div className = 'col visual mh-100 mw-100 overflow-auto p-2'>
                             <OverlayScrollbarsComponent
                                 options = { {} }
                             >
-                                {/* <div className = 'container'>
+                                {/* <div className = 'container-fluid'>
                                     <div className = 'row'>
                                         <div className = 'col'> */}
                                             <VisualContent 

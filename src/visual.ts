@@ -94,21 +94,9 @@
 
                         // Render our content
                             state.advancedEditing.enabled && DomainUtils.resolveUserStylesheet(this.styleSheetContainer, state.advancedEditing.stylesheet);
-                            // let dataElements = DomainUtils.bindVisualDataToDom(
-                            //         this.contentContainer,
-                            //         viewModel.htmlEntries
-                            //     );
-                            // DomainUtils.resolveHtmlGroupElement(dataElements, viewModel.contentFormatting.showRawHtml);
                             // DomainUtils.resolveGroupSeparation(viewModel.contentFormatting.separation, dataElements);
-                            // DomainUtils.resolveBodyStyling(this.container, {
-                            //     fontFamily: viewModel.contentFormatting.fontFamily,
-                            //     fontSize: viewModel.contentFormatting.fontSize,
-                            //     colour: viewModel.contentFormatting.fontColour,
-                            //     textAlign: viewModel.contentFormatting.align
-                            // });
-                            // DomainUtils.resolveHyperlinkHandling(this.host, this.container, viewModel.contentFormatting.hyperlinks);
-                            // DomainUtils.resolveContextMenu(this.container, this.host.createSelectionManager());
-                            // DomainUtils.resolveScrollableContent(this.container);
+                            DomainUtils.resolveHyperlinkHandling(this.host, this.container, state.contentFormatting.hyperlinks);
+                            DomainUtils.resolveContextMenu(this.container, this.host.createSelectionManager());
                             // state.advancedEditing.enabled && DomainUtils.resolveUserScript(state.advancedEditing.script);
 
                         // Signal that we've finished rendering

@@ -42,10 +42,10 @@
          */
             export function resolveHyperlinkHandling(
                 host: IVisualHost,
-                container: d3Select.Selection<any, any, any, any>,
+                container: HTMLElement,
                 allowDelegation?: boolean
             ) {
-                container
+                d3Select.select(container)
                     .selectAll('a')
                         .on('click', (d, i, e) => {
                             d3Select.event.preventDefault();
@@ -78,47 +78,6 @@
             }
 
         /**
-         * As we want to display different types of element for each entry/grouping, we will clear down the 
-         * existing children and rebuild with our desired element for handling raw vs. rendered HTML.
-         * 
-         * @param dataElements  - The elements to analyse and process.
-         * @param useRaw        - Whether we should be displaying raw HTML or not    
-         */
-            export function resolveHtmlGroupElement(
-                dataElements: d3Select.Selection<any, any, any, any>,
-                useRaw?: boolean
-            ) {
-                // Remove any applied elements
-                    dataElements.selectAll('*')
-                        .remove();
-                // Add the correct element
-                    useRaw &&
-                    dataElements
-                        .append('code')
-                            .text((d) => d) ||
-                    dataElements
-                        .append('div')
-                            .html((d) => d);
-            }
-
-        /**
-         * Apply styling of supplied properties from the visual to the supplied element.
-         * 
-         * @param element   - Element to apply styling to.
-         * @param props     - Supported styling properties.
-         */
-            export function resolveBodyStyling(
-                element: d3Select.Selection<any, any, any, any>,
-                props: IBodyElementStylingProps
-            ) {
-                element
-                    .style('font-family', props.fontFamily)
-                    .style('font-size', `${props.fontSize}pt`)
-                    .style('color', props.colour)
-                    .style('text-align', props.textAlign);
-            }
-
-        /**
          * Use OverlayScrollbars to apply nicer scrolling to the supplied element.
          * 
          * @param element   - HTML element to apply scrolling to.
@@ -140,10 +99,10 @@
          * @param selectionManager  - Power BI host services selection manager instance.
          */
             export function resolveContextMenu(
-                container: d3Select.Selection<any, any, any, any>,
+                container: HTMLElement,
                 selectionManager: ISelectionManager
             ) {
-                container.on('contextmenu', () => {
+                d3Select.select(container).on('contextmenu', () => {
                     const mouseEvent: MouseEvent = <MouseEvent>d3Select.event;
                     selectionManager.showContextMenu({}, {
                         x: mouseEvent.x,
@@ -152,34 +111,6 @@
                     mouseEvent.preventDefault();
                 })
 
-            }
-
-        /**
-         * Creates the d3 elements and data binding for the specified view model data.
-         * 
-         * @param container - The container to process.
-         * @param data      - Array of view model data to bind.
-         */
-            export function bindVisualDataToDom(
-                container: d3Select.Selection<any, any, any, any>,
-                data: string[]
-            ) {
-                return container
-                    .selectAll(`.${VisualConstants.dom.entryClassSelector}`)
-                        .data(data)
-                        .join(
-                                (enter) => enter
-                                            .append('div')
-                                                .classed(VisualConstants.dom.entryClassSelector, true)
-                            );
-            }
-
-        // Used for styling the main visual body, based on properties
-            export interface IBodyElementStylingProps {
-                fontFamily?: string;
-                fontSize?: number;
-                colour?: string;
-                textAlign?: string;
             }
 
     }

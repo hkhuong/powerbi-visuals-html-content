@@ -3,6 +3,8 @@
 
 // External dependencies
     import * as React from 'react';
+    import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+    import { TextAlignProperty } from 'csstype'
 
 // Internal dependencies
     import {
@@ -12,26 +14,38 @@
 
     export class VisualContent extends React.Component<IVisualContentProps, {}> {
 
+        
+
         render() {
-            console.log(this.props.contentFormatting?.showRawHtml);
-            if (this.props.contentFormatting?.showRawHtml) {
+
+            const {
+                contentFormatting
+            } = this.props;
+
+            if (contentFormatting?.showRawHtml) {
                 return (
-                    <div
-                        id = 'customHtmlContent'
-                        className = 'os-host-flexbox'
+                    <textarea
+                        id = 'rawHtmlOutput'
+                        className = 'form-control'
+                        style = {{
+                            fontSize: `${contentFormatting?.fontSize}pt`
+                        }}
+                        readOnly
                     >
-                        <code
-                            id = 'rawHtmlContent'
-                        >
-                            { this.getEnclosedBodyContent() }
-                        </code>
-                    </div>
+                        { this.processRawHtml(this.getEnclosedBodyContent()) }
+                    </textarea>
                 )
             } else {
                 return (
                     <div
                         id = 'customHtmlContent'
                         className = 'os-host-flexbox'
+                        style = {{
+                            fontSize: `${contentFormatting?.fontSize}pt`,
+                            fontFamily: `${contentFormatting?.fontFamily}`,
+                            textAlign: contentFormatting?.align as TextAlignProperty,
+                            color: `${contentFormatting?.fontColour}`
+                        }}
                         dangerouslySetInnerHTML = {{
                             __html: this.getEnclosedBodyContent()
                         }}
@@ -96,6 +110,38 @@
             return text.split(search).join(replace);
         }
 
+    /**
+     * Take supplied HTML string and use the DOM to 'pretty print' it.
+     *
+     * @param rawHtml   - HTML content to process.
+     */
+        private processRawHtml(rawHtml: string) {
+            let div = document.createElement('div');
+            div.innerHTML = rawHtml.trim();
+            return this.formatRawHtml(div, 0).innerHTML;
+        }
+
+    /**
+     * Use to recursively add child elements to the DOM for pretty printing.
+     *
+     * @param node  - HTML Element to operate on.
+     * @param level - Current level of the DOM tree.
+     */
+        private formatRawHtml(node: Element, level) {
+            let indentBefore = new Array(level++ + 1).join('  '),
+                indentAfter  = new Array(level - 1).join('  '),
+                textNode: Text;
+            for (var i = 0; i < node.children.length; i++) {
+                textNode = document.createTextNode(indentBefore);
+                node.insertBefore(textNode, node.children[i]);
+                this.formatRawHtml(node.children[i], level);
+                if (node.lastElementChild == node.children[i]) {
+                    textNode = document.createTextNode(indentAfter);
+                    node.appendChild(textNode);
+                }
+            }
+            return node;
+        }
     }
 
     export default VisualContent;

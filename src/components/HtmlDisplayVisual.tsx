@@ -61,18 +61,20 @@
                 }
                 case data.isDataViewValid: {
                     return (
-                    <OverlayScrollbarsComponent
-                        options = { VisualConstants.dom.scrollbars }
-                    >
-                        <div id = 'customHtmlContainer'>
-                            <VisualContent
-                                visualData = { data.visualData }
-                                advancedEditing = { advancedEditing }
-                                contentFormatting = { contentFormatting }
-                                host = { this.props.host }
-                            />
-                        </div>
-                    </OverlayScrollbarsComponent>
+                        <OverlayScrollbarsComponent
+                            options = { VisualConstants.dom.scrollbars }
+                        >
+                            <div
+                                id = 'customHtmlContainer'
+                            >
+                                <VisualContent
+                                    visualData = { data.visualData }
+                                    advancedEditing = { advancedEditing }
+                                    contentFormatting = { contentFormatting }
+                                    host = { this.props.host }
+                                />
+                            </div>
+                        </OverlayScrollbarsComponent>
                     )
                 }
             }
