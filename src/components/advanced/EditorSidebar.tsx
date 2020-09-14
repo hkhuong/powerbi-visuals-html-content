@@ -46,7 +46,6 @@
                                     currentValue = { advancedEditing.row }
                                     defaultValue = { VisualSettings.getDefault()['advancedEditing'].row }
                                     advancedEditingObjectMetadata = { advancedEditingObjectMetadata }
-                                    eventKey = { 2 }
                                     editorMode = 'html'
                                     columns = { this.props.visualData.columns }
                                     localisationManager = { localisationManager }
@@ -61,7 +60,6 @@
                                     currentValue = { advancedEditing.body }
                                     defaultValue = { VisualSettings.getDefault()['advancedEditing'].body }
                                     advancedEditingObjectMetadata = { advancedEditingObjectMetadata }
-                                    eventKey = { 1 }
                                     editorMode = 'html'
                                     columns = { visualData.columns }
                                     localisationManager = { localisationManager }
@@ -76,7 +74,6 @@
                                     currentValue = { advancedEditing.stylesheet }
                                     defaultValue = { VisualSettings.getDefault()['advancedEditing'].stylesheet }
                                     advancedEditingObjectMetadata = { advancedEditingObjectMetadata }
-                                    eventKey = { 0 }
                                     editorMode = 'css'
                                     columns = { null }
                                     localisationManager = { localisationManager }
