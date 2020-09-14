@@ -14,20 +14,14 @@
     import ILocalizationManager = powerbi.extensibility.ILocalizationManager;
     import ViewMode = powerbi.ViewMode;
     import EditMode = powerbi.EditMode;
-
 // External dependencies
     import * as d3Select from 'd3-selection';
     import * as React from 'react';
     import * as ReactDOM from 'react-dom';
-
 // Internal Dependencies
     import HtmlDisplayVisual from './components/HtmlDisplayVisual';
-    import {
-        VisualSettings
-    } from './VisualSettings';
-    import {
-        VisualConstants
-    } from './VisualConstants';
+    import { VisualSettings } from './VisualSettings';
+    import { VisualConstants } from './VisualConstants';
     import DomainUtils from './DomainUtils';
     import DataUtils from './DataUtils';
 
@@ -62,7 +56,8 @@
                 this.styleSheetContainer = d3Select.select('head')
                     .append('style')
                         .attr('id', VisualConstants.dom.stylesheetIdSelector)
-                        .attr('name', VisualConstants.dom.stylesheetIdSelector);
+                        .attr('name', VisualConstants.dom.stylesheetIdSelector)
+                        .attr('rel', 'stylesheet/less');
                 
             }
 
@@ -86,6 +81,7 @@
                                 isEditMode: options.viewMode === ViewMode.Edit && options.editMode === EditMode.Advanced && options.isInFocus,
                                 contentFormatting: this.settings.contentFormatting,
                                 advancedEditing: this.settings.advancedEditing,
+                                editorOptions: this.settings.editorOptions,
                                 objectMetadata: options.dataViews[0] && options.dataViews[0].metadata && options.dataViews[0].metadata.objects,
                                 data: DataUtils.getProcessedDataView(options.dataViews)
                             };
@@ -94,7 +90,6 @@
 
                         // Render our content
                             state.advancedEditing.enabled && DomainUtils.resolveUserStylesheet(this.styleSheetContainer, state.advancedEditing.stylesheet);
-                            // DomainUtils.resolveGroupSeparation(viewModel.contentFormatting.separation, dataElements);
                             DomainUtils.resolveHyperlinkHandling(this.host, this.container, state.contentFormatting.hyperlinks);
                             DomainUtils.resolveContextMenu(this.container, this.host.createSelectionManager());
                             // state.advancedEditing.enabled && DomainUtils.resolveUserScript(state.advancedEditing.script);
@@ -148,6 +143,22 @@
                             delete instances[0].properties['fontFamily'];
                         }
                         break;
+                    }
+                    case 'editorOptions': {
+                        instances[0].validValues = {
+                            maxMarginFactor: {
+                                numberRange: {
+                                    min: VisualConstants.editorOptions.maxMarginFactor.min,
+                                    max: VisualConstants.editorOptions.maxMarginFactor.max
+                                }
+                            },
+                            tabSize: {
+                                numberRange: {
+                                    min: VisualConstants.editorOptions.tabsize.min,
+                                    max: VisualConstants.editorOptions.tabsize.max
+                                }
+                            }
+                        }
                     }
                 }
                 return instances;

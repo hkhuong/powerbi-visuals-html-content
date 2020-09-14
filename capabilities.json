@@ -5,7 +5,7 @@
             "descriptionKey": "Roles_HTML_Content_Description",
             "displayName": "HTML Content",
             "description": "HTML Content description.",
-            "name": "values",
+            "name": "content",
             "kind": "GroupingOrMeasure"
         },
         {
@@ -24,26 +24,6 @@
             "displayName": "Content Formatting",
             "description": "Content Formatting description.",
             "properties": {
-                "separation": {
-                    "displayNameKey": "Objects_ContentFormatting_Separation",
-                    "descriptionKey": "Objects_ContentFormatting_Separation_Description",
-                    "displayName": "Separation",
-                    "description": "Separation description.",
-                    "type": {
-                        "enumeration": [
-                            {
-                                "displayName": "None",
-                                "displayNameKey": "Enum_Separation_None",
-                                "value": "none"
-                            },
-                            {
-                                "displayName": "HR",
-                                "displayNameKey": "Enum_Separation_HR",
-                                "value": "hr"
-                            }
-                        ]
-                    }
-                },
                 "showRawHtml": {
                     "displayNameKey": "Objects_ContentFormatting_ShowRawHTML",
                     "descriptionKey": "Objects_ContentFormatting_ShowRawHTML_Description",
@@ -153,6 +133,41 @@
                     }
                 }
             }
+        },
+        "editorOptions": {
+            "displayNameKey": "Objects_EditorOptions",
+            "descriptionKey": "Objects_EditorOptions_Description",
+            "displayName": "Editor",
+            "description": "Editor description.",
+            "properties": {
+                "maxMarginFactor": {
+                    "displayNameKey": "Objects_EditorOptions_SidebarWidth",
+                    "descriptionKey": "Objects_EditorOptions_SidebarWidth_Description",
+                    "displayName": "Sidebar Width",
+                    "description": "Sidebar Width description.",
+                    "type": {
+                        "integer": true
+                    }
+                },
+                "tabSize": {
+                    "displayNameKey": "Objects_EditorOptions_TabSize",
+                    "descriptionKey": "Objects_EditorOptions_TabSize_Description",
+                    "displayName": "Tab Size",
+                    "description": "Tab size description.",
+                    "type": {
+                        "integer": true
+                    }
+                },
+                "wrap": {
+                    "displayNameKey": "Objects_EditorOptions_Wrap",
+                    "descriptionKey": "Objects_EditorOptions_Wrap_Description",
+                    "displayName": "Wrap Text",
+                    "description": "Wrap Text description.",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
         }
     },
     "dataViewMappings": [
@@ -167,7 +182,7 @@
                         },
                         {
                             "for": {
-                                "in": "values"
+                                "in": "content"
                             }
                         }
                     ],
@@ -184,5 +199,6 @@
         "default": {}
     },
     "supportsLandingPage": true,
-    "advancedEditModeSupport": 2
+    "advancedEditModeSupport": 2,
+    "suppressDefaultTitle": true
 }

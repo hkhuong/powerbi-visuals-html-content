@@ -1,27 +1,34 @@
 // External dependencies
     import * as React from 'react';
-    import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-
 // Internal dependencies
     import {
-        VisualConstants
-    } from '../VisualConstants';
+        VisualSettings
+    } from '../VisualSettings';
     import {
         IHtmlDisplayVisualProps,
         IHtmlDisplayVisualState
     } from '../interfaces';
     import DataUtils from '../DataUtils';
     import LandingPage from './LandingPage';
-    import AdvancedEditor from './AdvancedEditor';
-    import VisualContent from './VisualContent';
+    import AdvancedEditor from './advanced/AdvancedEditor';
+    import StandardDisplay from './StandardDisplay';
 
+// Ensure that if visual settings haven't been parsed, then we fill with defaults
+    const defaultSettings = VisualSettings.getDefault();
+// Initial component state
     const initialState: IHtmlDisplayVisualState = {
         data: DataUtils.getProcessedDataView([]),
         isEditMode: false,
-        canAdvancedEdit: false
+        canAdvancedEdit: false,
+        editorOptions: defaultSettings['editorOptions'],
+        advancedEditing: defaultSettings['advancedEditing'],
+        contentFormatting: defaultSettings['contentFormatting']
     }
 
-    export class HtmlDisplayVisual extends React.Component<IHtmlDisplayVisualProps, IHtmlDisplayVisualState> {
+/**
+ * Main visual UI component; driven from visual workflow
+ */
+    export default class HtmlDisplayVisual extends React.Component<IHtmlDisplayVisualProps, IHtmlDisplayVisualState> {
 
         constructor(props: IHtmlDisplayVisualProps) {
             super(props);
@@ -36,7 +43,8 @@
                 advancedEditing,
                 contentFormatting,
                 objectMetadata,
-                data
+                data,
+                editorOptions
             } = this.state;
             switch (true) {
                 case !data.isDataViewValid: {
@@ -56,25 +64,18 @@
                             contentFormatting = { contentFormatting }
                             visualData = { data.visualData }
                             advancedEditingObjectMetadata = { objectMetadata?.advancedEditing }
+                            editorOptions = { editorOptions }
                         />
                     );
                 }
                 case data.isDataViewValid: {
                     return (
-                        <OverlayScrollbarsComponent
-                            options = { VisualConstants.dom.scrollbars }
-                        >
-                            <div
-                                id = 'customHtmlContainer'
-                            >
-                                <VisualContent
-                                    visualData = { data.visualData }
-                                    advancedEditing = { advancedEditing }
-                                    contentFormatting = { contentFormatting }
-                                    host = { this.props.host }
-                                />
-                            </div>
-                        </OverlayScrollbarsComponent>
+                        <StandardDisplay
+                            visualData = { data.visualData }
+                            advancedEditing = { advancedEditing }
+                            contentFormatting = { contentFormatting }
+                            host = { this.props.host }
+                        />
                     )
                 }
             }
@@ -108,5 +109,3 @@
         }
 
     }
-
-    export default HtmlDisplayVisual;

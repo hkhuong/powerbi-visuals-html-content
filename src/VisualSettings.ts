@@ -31,36 +31,46 @@ import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 import { VisualConstants } from './VisualConstants';
 
 export class VisualSettings extends DataViewObjectsParser {
-    public contentFormatting: ContentFormattingSettings = new ContentFormattingSettings();
-    public advancedEditing: AdvancedEditingSettings = new AdvancedEditingSettings();
+    contentFormatting: ContentFormattingSettings = new ContentFormattingSettings();
+    editorOptions: EditorOptionsSettings = new EditorOptionsSettings();
+    advancedEditing: AdvancedEditingSettings = new AdvancedEditingSettings();
 }
 
 export class ContentFormattingSettings {
     // Separate row data
-        public separation: string = VisualConstants.contentFormatting.separation;
+        separation: string = VisualConstants.contentFormatting.separation;
     // Whether to render as HTML or show raw code
-        public showRawHtml: boolean = VisualConstants.contentFormatting.showRawHtml;
+        showRawHtml: boolean = VisualConstants.contentFormatting.showRawHtml;
     // Allow hyperlinks to be opened using the visual host
-        public hyperlinks: boolean = VisualConstants.contentFormatting.hyperlinks;
+        hyperlinks: boolean = VisualConstants.contentFormatting.hyperlinks;
     // Default font family; used if no explicity styling in HTML body
-        public fontFamily: string = VisualConstants.contentFormatting.font.family;
+        fontFamily: string = VisualConstants.contentFormatting.font.family;
     // Default font size; used if no explicity styling in HTML body
-        public fontSize: number = VisualConstants.contentFormatting.font.size;
+        fontSize: number = VisualConstants.contentFormatting.font.size;
     // Default font colour; used if no explicity styling in HTML body
-        public fontColour: string = VisualConstants.contentFormatting.font.colour;
+        fontColour: string = VisualConstants.contentFormatting.font.colour;
     // Default font size; used if no explicity styling in HTML body
-        public align: string = VisualConstants.contentFormatting.align;
+        align: string = VisualConstants.contentFormatting.align;
+}
+
+export class EditorOptionsSettings {
+    // Percent width of editor relative to full-screen (named as such to give end-user a slide control)
+        maxMarginFactor: number = VisualConstants.editorOptions.maxMarginFactor.default;
+    // Number of characters in editor for tabs
+        tabSize: number = VisualConstants.editorOptions.tabsize.default;
+    // Word wrap enable/disable
+        wrap: boolean = VisualConstants.editorOptions.wrap;
 }
 
 export class AdvancedEditingSettings {
     // Enabled
-        public enabled: boolean = VisualConstants.advancedEditing.enabled;
+        enabled: boolean = VisualConstants.advancedEditing.enabled;
     // Custom stylesheet
-        public stylesheet: string = VisualConstants.advancedEditing.stylesheet.content;
+        stylesheet: string = VisualConstants.advancedEditing.stylesheet.content;
     // Custom stylesheet
-        public script: string = VisualConstants.advancedEditing.script.content;
+        script: string = VisualConstants.advancedEditing.script.content;
     // Body content
-        public body: string = VisualConstants.advancedEditing.body.content;
+        body: string = VisualConstants.advancedEditing.body.content;
     // Data row template content
-        public row: string = VisualConstants.advancedEditing.row.content;
+        row: string = VisualConstants.advancedEditing.row.content;
 }

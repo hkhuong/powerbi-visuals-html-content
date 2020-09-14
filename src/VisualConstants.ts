@@ -2,16 +2,18 @@
     import { visual } from '../pbiviz.json';
 
     const
-        userVisualHtmlBodyClass = 'htmlDisplayBody',
-        userVisualHtmlDataRowClass = 'htmlDisplayDataRow',
+        userVisualHtmlBodyClass = 'htmlContentBody',
+        userVisualHtmlDataRowClass = 'htmlContentDataRow',
         dataSetToken = '{{dataset}}',
         dataRowToken = '{{row}}';
     
     export const VisualConstants = {
+        devMode: false,
         visual: visual,
         support: {
             home: visual.supportUrl,
-            privacy: 'https://github.com/dm-p/powerbi-visuals-html-display/blob/master/doc/privacy_policy.md'
+            sponsors: 'https://github.com/sponsors/dm-p',
+            privacy: 'https://github.com/dm-p/powerbi-visuals-html-content/blob/master/doc/privacy_policy.md'
         },
         contentFormatting: {
             showRawHtml: false,
@@ -41,8 +43,22 @@
                 content: `<div class="${userVisualHtmlDataRowClass}">\n  ${dataRowToken}\n</div>`
             }
         },
+        editorOptions: {
+            maxMarginFactor: {
+                default: 40,
+                min: 15,
+                max: 60
+            },
+            tabsize: {
+                default: 4,
+                min: 1,
+                max: 12
+            },
+            wrap: true
+        },
         dom: {
-            viewerIdSelector: 'htmlDisplay',
+            htmlOutputIdSelector: 'renderedHtmlOutput',
+            htmlRawOutputIdSelector: 'rawHtmlOutput',
             stylesheetIdSelector: 'visualUserStylesheet',
             advancedEditorAccordionIdSelector: 'advancedEditorAccordion',
             stylesheetEditorIdSelectorSuffix: 'StylesheetEditor',
@@ -54,7 +70,7 @@
             entryClassSelector: 'htmlDisplayEntry',
             statusIdSelector: 'statusMessage',
             contentIdSelector: 'htmlContent',
-            landingIdSelector: 'htmlDisplayLandingPage',
+            landingIdSelector: 'landingPage',
             scrollbars: {
                 autoUpdate: true
             }

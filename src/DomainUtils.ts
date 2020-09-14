@@ -2,23 +2,37 @@
     import powerbi from 'powerbi-visuals-api';
     import IVisualHost = powerbi.extensibility.visual.IVisualHost;
     import ISelectionManager = powerbi.extensibility.ISelectionManager;
-
 // External dependencies
     import * as d3Select from 'd3-selection';
-    import * as OverlayScrollbars from 'overlayscrollbars';
-
+    import * as less from 'less';
 // Internal dependencies
     import { VisualConstants } from './VisualConstants';
 
     export namespace DomainUtils {
 
+        /**
+         * Compile user-supplied CSS and add to the visual's DOM with an appropriate "namespace",
+         * so as to not interfere with any of our internal elements
+         *
+         * @param stylesheetContainer   - style element to apply/update
+         * @param css                   - CSS content to compile
+         */
             export function resolveUserStylesheet(
                 stylesheetContainer: d3Select.Selection<HTMLStyleElement, any, any, any>,
                 css: string
             ) {
-                stylesheetContainer.text(css)
+                let styles = `#${VisualConstants.dom.htmlOutputIdSelector} {
+                        {{css}}
+                    }`.replace('{{css}}', css);
+                less.render(styles, (err, out) => {
+                    stylesheetContainer.text(out.css);
+                });                
             }
 
+        /**
+         * Potentially allow scripting for the user; currently not being called
+         * @param script 
+         */
             export function resolveUserScript(
                 // scriptContainer: d3.Selection<HTMLScriptElement, any, any, any>,
                 script: string
@@ -54,42 +68,6 @@
                                         .attr('href')
                                 );
                         });
-            }
-
-        /**
-         * If the user wishes to separate grouping elements with something else, handle and append accordingly.
-         * 
-         * @param type              - The separation type to apply to elements.
-         * @param dataElements      - The elements to analyse and process.
-         */
-            export function resolveGroupSeparation(
-                type: string,
-                dataElements: d3Select.Selection<any, any, any, any>
-            ) {
-                // Remove the final element, as it's not required
-                    let eligible = dataElements.filter((e, i) => i < dataElements.data().length - 1);
-                // Add the necessary separation to each eligible group
-                    switch (type) {
-                        case 'hr': {
-                            eligible.append('hr');
-                            break;
-                        }
-                    }
-            }
-
-        /**
-         * Use OverlayScrollbars to apply nicer scrolling to the supplied element.
-         * 
-         * @param element   - HTML element to apply scrolling to.
-         */
-            export function resolveScrollableContent(
-                element: HTMLElement
-            ) {
-                OverlayScrollbars(element, {
-                    scrollbars: {
-                        clickScrolling: true
-                    }
-                });
             }
 
         /**

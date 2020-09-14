@@ -1,32 +1,27 @@
-// Power BI dependencies
+// Power BI API dependencies
     import { valueFormatter } from 'powerbi-visuals-utils-formattingutils';
-
 // External dependencies
     import * as React from 'react';
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
     import { TextAlignProperty } from 'csstype'
-
-// Internal dependencies
-    import {
-        IVisualContentProps
-    } from '../interfaces';
+// Internal dependencies 
+    import { IVisualContentProps } from '../interfaces';
     import { VisualConstants } from '../VisualConstants';
 
-    export class VisualContent extends React.Component<IVisualContentProps, {}> {
-
-        
+/**
+ * Standard visual display component; will display either desired output or generated HTML based on settings
+ */
+    export default class VisualContent extends React.Component<IVisualContentProps, {}> {
 
         render() {
-
             const {
                 contentFormatting
             } = this.props;
-
             if (contentFormatting?.showRawHtml) {
                 return (
                     <textarea
-                        id = 'rawHtmlOutput'
-                        className = 'form-control'
+                        id = { VisualConstants.dom.htmlRawOutputIdSelector }
+                        className = 'w3-input w3-border w3-round'
                         style = {{
                             fontSize: `${contentFormatting?.fontSize}pt`
                         }}
@@ -38,8 +33,7 @@
             } else {
                 return (
                     <div
-                        id = 'customHtmlContent'
-                        className = 'os-host-flexbox'
+                        id = { VisualConstants.dom.htmlOutputIdSelector }
                         style = {{
                             fontSize: `${contentFormatting?.fontSize}pt`,
                             fontFamily: `${contentFormatting?.fontFamily}`,
@@ -143,5 +137,3 @@
             return node;
         }
     }
-
-    export default VisualContent;

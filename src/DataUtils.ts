@@ -2,7 +2,7 @@
     import powerbi from 'powerbi-visuals-api';
     import DataView = powerbi.DataView;
     import DataViewMetadataColumn = powerbi.DataViewMetadataColumn;
-
+// Internal dependencies
     import {
         ITableColumn,
         IVisualValueData,
@@ -33,7 +33,7 @@
                         valuesDataRoleIndex = hasBasicDataView
                             ?   getContentRoleMetadataIndex(
                                     dataViews[0].metadata.columns,
-                                    'values'
+                                    'content'
                                 )
                             :   -1,
                         usesValuesDataRole = hasBasicDataView &&
@@ -74,20 +74,20 @@
             function mapTable(table: powerbi.DataViewTable): IVisualData {
                 const
                     columns: ITableColumn[] = table.columns
-                        .filter((c) => c.roles?.values)
-                        .map((c, ci) => ({
+                        .filter((c) => c.roles?.content)
+                        .map((c) => ({
                                     name: c.displayName,
                                     index: c.index,
                                     isMeasure: c.isMeasure,
                                     format: c.format
                                 })
                             ),
-                    values = table.rows.map((r, ri) => {
+                    values = table.rows.map((r) => {
                             let row: IVisualValues = {};
                             r.forEach((c, ci) => {
-                                const col = columns.find((col) => col.index === ci);
+                                const col = columns[ci];
                                 if (col) {
-                                    row[col.name] = c
+                                    row[col.name] = c;
                                 }
                             });
                             return row;

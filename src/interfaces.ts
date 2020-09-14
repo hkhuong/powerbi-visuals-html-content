@@ -4,13 +4,11 @@
     import IVisualHost = powerbi.extensibility.visual.IVisualHost;
     import ILocalizationManager = powerbi.extensibility.ILocalizationManager;
     import DataViewObjects = powerbi.DataViewObjects;
-    import DataViewObject = powerbi.DataViewObject;
-
 // Internal dependencies
     import {
         AdvancedEditingSettings,
         ContentFormattingSettings,
-        VisualSettings
+        EditorOptionsSettings
     } from './VisualSettings';
 
 /**
@@ -34,13 +32,15 @@
         // Confirms that we can display advanced edit options
             canAdvancedEdit: boolean;
         // Visual's advanced editing properties from the data view (or defaults)
-            advancedEditing?: AdvancedEditingSettings;
+            advancedEditing: AdvancedEditingSettings;
         // Visual's content editing properties from the data view (or defaults)
-            contentFormatting?: ContentFormattingSettings;
+            contentFormatting: ContentFormattingSettings;
         // Object metadata, used for checking/persisting
             objectMetadata?: DataViewObjects;
         // Visual data (mapped from data view)
             data: IVisualValueData;
+        // Editor options
+            editorOptions: EditorOptionsSettings;
     }
 
 /**
@@ -86,7 +86,7 @@
     }
 
 /**
- * React component props used to manage the visual landing page.
+ * Manages the visual landing page.
  */
     export interface ILandingPageProps {
         // Power BI visual host services
@@ -95,55 +95,16 @@
             localisationManager: ILocalizationManager;
     }
 
-    export interface IAdvancedEditorProps {
-        // Power BI visual host services
-            host: IVisualHost;
-        // Localisation manager instance
-            localisationManager: ILocalizationManager;
-        // Object metadata, used for checking/persisting
-            advancedEditingObjectMetadata?: DataViewObject;
-        // Visual's advanced editing properties from the data view (or defaults)
-            advancedEditing?: AdvancedEditingSettings;
-        // Visual's content editing properties from the data view (or defaults)
-            contentFormatting?: ContentFormattingSettings;
-        // Derived visual data
-            visualData: IVisualData;
-    }
-
-    export interface IAdvancedEditorState {
-
-    }
-
+/**
+ * Manages the main visual display
+ */
     export interface IVisualContentProps {
         // Visual's advanced editing properties from the data view (or defaults)
-            advancedEditing?: AdvancedEditingSettings;
+            advancedEditing: AdvancedEditingSettings;
         // Visual's content editing properties from the data view (or defaults)
-            contentFormatting?: ContentFormattingSettings;
+            contentFormatting: ContentFormattingSettings;
         // Derived visual data
             visualData: IVisualData;
         // Power BI visual host services
             host: IVisualHost;
-    }
-
-    export interface IAdvancedEditorAreaProps {
-        // Power BI visual host services
-            host: IVisualHost;
-        // Object metadata, used for checking/persisting
-            advancedEditingObjectMetadata?: DataViewObject;
-        // Localisation manager instance
-            localisationManager: ILocalizationManager;
-        selectorIdSuffix: string;
-        heading: string;
-        assistiveText?: string;
-        propertyName: string;
-        currentValue: string;
-        defaultValue: string;
-        eventKey: number;
-        editorMode: string;
-        columns: ITableColumn[];
-    }
-
-    export interface IAdvandedEditorAreaState {
-        // Whether section is expanded or not
-            expanded: boolean;
     }
