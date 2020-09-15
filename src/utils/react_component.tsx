@@ -4,18 +4,16 @@
 // External dependencies
     import * as React from 'react';
 // Internal dependencies
-    import {
-        VisualConstants
-    } from '../VisualConstants';
+    import { VisualConstants } from '../VisualConstants';
 
 /**
  * Displays 'not for production' message if dev flag enabled.
  */
     export function resolveDevMessage() {
-        return VisualConstants.devMode && 
+        return (VisualConstants.preProduction || VisualConstants.devMode) && 
             (
                 <span className = 'not-for-production'>
-                    &nbsp;{ VisualConstants.devMode && 'DEVELOPMENT BUILD - NOT FOR PRODUCTION USE' || '' }
+                    &nbsp;{ 'PRE-RELEASE BUILD' }
                 </span>
             ) || null;
     }

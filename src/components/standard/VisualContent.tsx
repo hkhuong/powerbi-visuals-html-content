@@ -3,11 +3,13 @@
 // External dependencies
     import * as React from 'react';
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-    import { TextAlignProperty } from 'csstype'
+    import { TextAlignProperty } from 'csstype';
+    import * as less from 'less';
     var pretty = require('pretty');
 // Internal dependencies 
     import { VisualContentProps } from '../../defs/standard';
     import { VisualConstants } from '../../VisualConstants';
+    import { getCompiledCss } from '../../utils/dom';
 
 /**
  * Standard visual display component; will display either desired output or generated HTML based on settings
@@ -27,7 +29,7 @@
                             fontSize: `${contentFormatting?.fontSize}pt`
                         }}
                         readOnly
-                        value = { pretty(this.getEnclosedBodyContent()) }
+                        value = { pretty(this.getRawHtmlContent()) }
                     />
                 )
             } else {
@@ -46,6 +48,24 @@
                     />
                 );
             }
+        }
+
+    /**
+     * Generate raw output of HTML stylesheet and root div
+     */
+        private getRawHtmlContent() {
+            let css = '';
+            if (this.props.advancedEditing.enabled) {
+                css = `<style>${getCompiledCss(this.props.advancedEditing.stylesheet)}</style>`;
+            }
+            return `
+                <html>
+                    ${css}
+                    <div id="${VisualConstants.dom.htmlOutputIdSelector}">
+                        ${this.getEnclosedBodyContent()}
+                    </div>
+                </html>
+                `;
         }
 
     /**

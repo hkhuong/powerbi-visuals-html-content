@@ -19,12 +19,24 @@
         stylesheetContainer: d3Select.Selection<HTMLStyleElement, any, any, any>,
         css: string
     ) {
+        stylesheetContainer.text(getCompiledCss(css));
+    }
+
+/**
+ * Compile the supplied CSS with an appropriate "namespace", so as not to interfere with
+ * any of our visual's internal elements
+ *
+ * @param css                   - CSS content to compile
+ */
+    export function getCompiledCss(css: string) {
         let styles = `#${VisualConstants.dom.htmlOutputIdSelector} {
                 {{css}}
-            }`.replace('{{css}}', css);
+            }`.replace('{{css}}', css),
+            output = '';
         less.render(styles, (err, out) => {
-            stylesheetContainer.text(out.css);
-        });                
+            output = out.css;
+        });
+        return output;
     }
 
 /**

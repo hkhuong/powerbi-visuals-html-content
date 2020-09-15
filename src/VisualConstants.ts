@@ -8,6 +8,7 @@
         dataRowToken = '{{row}}';
     
     export const VisualConstants = {
+        preProduction: true,
         devMode: false,
         visual: visual,
         support: {
@@ -29,7 +30,7 @@
         advancedEditing: {
             enabled: true,
             stylesheet: {
-                content: '/* Add your valid CSS here */'
+                content: ''
             },
             script: {
                 content: '// Add your custom javascript here'
