@@ -4,13 +4,17 @@ import IVisualHost = powerbi.extensibility.visual.IVisualHost;
 import ILocalizationManager = powerbi.extensibility.ILocalizationManager;
 import DataViewObject = powerbi.DataViewObject;
 
-import { IVisualContentProps, ITableColumn, IVisualData } from '../interfaces';
+import { VisualContentProps } from '../defs/standard'
+import { ITableColumn, IVisualData } from './main';
 import {
     AdvancedEditingSettings,
     ContentFormattingSettings,
     EditorOptionsSettings
 } from '../VisualSettings';
 
+/**
+ * Manages advanced editing
+ */
     export interface AdvancedEditorProps {
         // Power BI visual host services
             host: IVisualHost;
@@ -28,6 +32,9 @@ import {
             editorOptions?: EditorOptionsSettings;
     }
 
+/**
+ * Manages advenced editor header section
+ */
     export interface EditorHeaderProps {
         // Power BI visual host services
             host: IVisualHost;
@@ -35,6 +42,9 @@ import {
             localisationManager: ILocalizationManager;
     }
 
+/**
+ * Manages advanced editor sidebar
+ */
     export interface EditorSidebarProps {
         // Power BI visual host services
             host: IVisualHost;
@@ -50,11 +60,17 @@ import {
             editorOptions: EditorOptionsSettings;
     }
 
-    export interface EditorVisualPreviewProps extends IVisualContentProps {
+/**
+ * Manages advanced editor visual preview area
+ */
+    export interface EditorVisualPreviewProps extends VisualContentProps {
         // Localisation manager instance
             localisationManager: ILocalizationManager;
     }
 
+/**
+ * Manages an individual accordion fold (sidebar menu)
+ */
     export interface AccordionFoldProps {
         // Power BI visual host services
             host: IVisualHost;
@@ -82,7 +98,12 @@ import {
             columns: ITableColumn[];
     }
 
+/**
+ * Manages individual accordion fold (sidebar menu) state
+ */
     export interface AccordionFoldState {
         // Whether section is expanded or not
-            expanded: boolean;
+            isExpanded: boolean;
+        // Whether changes should be saved or not
+            isDirty: boolean;
     }

@@ -3,21 +3,21 @@
 // Internal dependencies
     import {
         VisualSettings
-    } from '../VisualSettings';
+    } from '../../VisualSettings';
     import {
         IHtmlDisplayVisualProps,
         IHtmlDisplayVisualState
-    } from '../interfaces';
-    import DataUtils from '../DataUtils';
-    import LandingPage from './LandingPage';
-    import AdvancedEditor from './advanced/AdvancedEditor';
-    import StandardDisplay from './StandardDisplay';
+    } from '../../defs/main';
+    import getProcessedDataView  from '../../utils/getProcessedDataView';
+    import LandingPage from '../landing/LandingPage';
+    import AdvancedEditor from '../advanced/AdvancedEditor';
+    import StandardDisplay from '../standard/StandardDisplay';
 
 // Ensure that if visual settings haven't been parsed, then we fill with defaults
     const defaultSettings = VisualSettings.getDefault();
 // Initial component state
     const initialState: IHtmlDisplayVisualState = {
-        data: DataUtils.getProcessedDataView([]),
+        data: getProcessedDataView([]),
         isEditMode: false,
         canAdvancedEdit: false,
         editorOptions: defaultSettings['editorOptions'],
@@ -94,7 +94,7 @@
 
         private static updateCallback: (data: object) => void = null;
 
-        public static update(newState: Partial<IHtmlDisplayVisualState>) {
+        public static UPDATE(newState: Partial<IHtmlDisplayVisualState>) {
             if(typeof HtmlDisplayVisual.updateCallback === 'function'){
                 HtmlDisplayVisual.updateCallback(newState);
             }

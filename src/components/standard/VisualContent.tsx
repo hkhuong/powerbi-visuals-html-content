@@ -4,14 +4,15 @@
     import * as React from 'react';
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
     import { TextAlignProperty } from 'csstype'
+    var pretty = require('pretty');
 // Internal dependencies 
-    import { IVisualContentProps } from '../interfaces';
-    import { VisualConstants } from '../VisualConstants';
+    import { VisualContentProps } from '../../defs/standard';
+    import { VisualConstants } from '../../VisualConstants';
 
 /**
  * Standard visual display component; will display either desired output or generated HTML based on settings
  */
-    export default class VisualContent extends React.Component<IVisualContentProps, {}> {
+    export default class VisualContent extends React.Component<VisualContentProps, {}> {
 
         render() {
             const {
@@ -27,7 +28,7 @@
                         }}
                         readOnly
                     >
-                        { this.processRawHtml(this.getEnclosedBodyContent()) }
+                        { pretty(this.getEnclosedBodyContent()) }
                     </textarea>
                 )
             } else {
@@ -104,36 +105,4 @@
             return text.split(search).join(replace);
         }
 
-    /**
-     * Take supplied HTML string and use the DOM to 'pretty print' it.
-     *
-     * @param rawHtml   - HTML content to process.
-     */
-        private processRawHtml(rawHtml: string) {
-            let div = document.createElement('div');
-            div.innerHTML = rawHtml.trim();
-            return this.formatRawHtml(div, 0).innerHTML;
-        }
-
-    /**
-     * Use to recursively add child elements to the DOM for pretty printing.
-     *
-     * @param node  - HTML Element to operate on.
-     * @param level - Current level of the DOM tree.
-     */
-        private formatRawHtml(node: Element, level) {
-            let indentBefore = new Array(level++ + 1).join('  '),
-                indentAfter  = new Array(level - 1).join('  '),
-                textNode: Text;
-            for (var i = 0; i < node.children.length; i++) {
-                textNode = document.createTextNode(indentBefore);
-                node.insertBefore(textNode, node.children[i]);
-                this.formatRawHtml(node.children[i], level);
-                if (node.lastElementChild == node.children[i]) {
-                    textNode = document.createTextNode(indentAfter);
-                    node.appendChild(textNode);
-                }
-            }
-            return node;
-        }
     }

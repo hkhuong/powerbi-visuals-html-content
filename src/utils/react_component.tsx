@@ -28,4 +28,4 @@
     export function handleUiIconExternal(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, host: IVisualHost) {
         e.preventDefault();
         host.launchUrl(e.currentTarget.href);
-    };
+    }

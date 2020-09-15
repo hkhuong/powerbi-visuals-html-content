@@ -9,7 +9,7 @@
         AdvancedEditingSettings,
         ContentFormattingSettings,
         EditorOptionsSettings
-    } from './VisualSettings';
+    } from '../VisualSettings';
 
 /**
  * Necessary properties to render the visual as a React component.
@@ -83,28 +83,4 @@
  */
     export interface IVisualValues {
         [key: string]: any;
-    }
-
-/**
- * Manages the visual landing page.
- */
-    export interface ILandingPageProps {
-        // Power BI visual host services
-            host: IVisualHost;
-        // Localisation manager instance
-            localisationManager: ILocalizationManager;
-    }
-
-/**
- * Manages the main visual display
- */
-    export interface IVisualContentProps {
-        // Visual's advanced editing properties from the data view (or defaults)
-            advancedEditing: AdvancedEditingSettings;
-        // Visual's content editing properties from the data view (or defaults)
-            contentFormatting: ContentFormattingSettings;
-        // Derived visual data
-            visualData: IVisualData;
-        // Power BI visual host services
-            host: IVisualHost;
     }

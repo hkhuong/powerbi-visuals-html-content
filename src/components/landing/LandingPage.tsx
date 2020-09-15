@@ -1,18 +1,15 @@
-// Power BI API references
-    import powerbiVisualsApi from 'powerbi-visuals-api';
-    import powerbi = powerbiVisualsApi;
 // External dependencies
     import * as React from 'react';
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 // Internal dependencies
-    import { VisualConstants } from '../VisualConstants';
-    import { ILandingPageProps } from '../interfaces';
-    import { resolveDevMessage } from './Common';
-    import SponsorIcon from './external/SponsorIcon';
-    import RepoIcon from './external/RepoIcon';
-    import PrivacyPolicyIcon from './external/PrivacyPolicyIcon';
+    import { VisualConstants } from '../../VisualConstants';
+    import { LandingPageProps } from '../../defs/landing';
+    import { resolveDevMessage } from '../../utils/react_component';
+    import SponsorIcon from '../external/SponsorIcon';
+    import RepoIcon from '../external/RepoIcon';
+    import PrivacyPolicyIcon from '../external/PrivacyPolicyIcon';
 
-    export default class LandingPage extends React.Component<ILandingPageProps, {}> {
+    export default class LandingPage extends React.Component<LandingPageProps, {}> {
         render() {
             const {
                 localisationManager,

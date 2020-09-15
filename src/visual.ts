@@ -19,11 +19,15 @@
     import * as React from 'react';
     import * as ReactDOM from 'react-dom';
 // Internal Dependencies
-    import HtmlDisplayVisual from './components/HtmlDisplayVisual';
+    import HtmlDisplayVisual from './components/main/HtmlDisplayVisual';
     import { VisualSettings } from './VisualSettings';
     import { VisualConstants } from './VisualConstants';
-    import DomainUtils from './DomainUtils';
-    import DataUtils from './DataUtils';
+    import {
+        resolveUserStylesheet,
+        resolveHyperlinkHandling,
+        resolveContextMenu
+    } from './utils/dom';
+    import getProcessedDataView from './utils/getProcessedDataView';
 
     export class Visual implements IVisual {
 
@@ -83,15 +87,15 @@
                                 advancedEditing: this.settings.advancedEditing,
                                 editorOptions: this.settings.editorOptions,
                                 objectMetadata: options.dataViews[0] && options.dataViews[0].metadata && options.dataViews[0].metadata.objects,
-                                data: DataUtils.getProcessedDataView(options.dataViews)
+                                data: getProcessedDataView(options.dataViews)
                             };
                             console.log('State', state);
-                            HtmlDisplayVisual.update(state);
+                            HtmlDisplayVisual.UPDATE(state);
 
                         // Render our content
-                            state.advancedEditing.enabled && DomainUtils.resolveUserStylesheet(this.styleSheetContainer, state.advancedEditing.stylesheet);
-                            DomainUtils.resolveHyperlinkHandling(this.host, this.container, state.contentFormatting.hyperlinks);
-                            DomainUtils.resolveContextMenu(this.container, this.host.createSelectionManager());
+                            state.advancedEditing.enabled && resolveUserStylesheet(this.styleSheetContainer, state.advancedEditing.stylesheet);
+                            resolveHyperlinkHandling(this.host, this.container, state.contentFormatting.hyperlinks);
+                            resolveContextMenu(this.container, this.host.createSelectionManager());
                             // state.advancedEditing.enabled && DomainUtils.resolveUserScript(state.advancedEditing.script);
 
                         // Signal that we've finished rendering
@@ -99,13 +103,9 @@
                             return;
 
                     } catch(e) {
-
                         // Signal that we've encountered an error
                             this.events.renderingFailed(options, e);
-                            // this.contentContainer.selectAll('*').remove();
                             this.updateStatus();
-                            // DomainUtils.resolveScrollableContent(this.container.node());
-
                     }
 
             }
@@ -129,7 +129,7 @@
          *
          */
             public enumerateObjectInstances(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstance[] | VisualObjectInstanceEnumerationObject {
-                const instances: VisualObjectInstance[] = (
+                let instances: VisualObjectInstance[] = (
                         <VisualObjectInstanceEnumerationObject>VisualSettings.enumerateObjectInstances(
                             this.settings || VisualSettings.getDefault(),
                             options
@@ -138,6 +138,12 @@
                 let objectName = options.objectName;
 
                 switch (objectName) {
+                    case 'advancedEditing': {
+                        if (!VisualConstants.devMode) {
+                            instances = [];
+                        }
+                        break;
+                    }
                     case 'contentFormatting': {
                         if (this.settings.contentFormatting.showRawHtml) {
                             delete instances[0].properties['fontFamily'];

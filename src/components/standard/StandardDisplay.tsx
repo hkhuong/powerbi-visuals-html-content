@@ -2,14 +2,14 @@
     import * as React from 'react';
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 // Internal dependencies
-    import { VisualConstants } from '../VisualConstants';
-    import { IVisualContentProps } from '../interfaces';
+    import { VisualConstants } from '../../VisualConstants';
+    import { VisualContentProps } from '../../defs/standard';
     import VisualContent from './VisualContent';
 
 /**
  * Deals with the regular visual display, when not using advanced editing
  */
-    export default class StandardDisplay extends React.Component<IVisualContentProps, {}> {
+    export default class StandardDisplay extends React.Component<VisualContentProps, {}> {
             render() {
                 const {
                     visualData,

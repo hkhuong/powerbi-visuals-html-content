@@ -3,7 +3,7 @@
 // Internal dependencies
     import { EditorHeaderProps } from '../../defs/advanced';
     import { VisualConstants } from '../../VisualConstants';
-    import { resolveDevMessage } from '../Common';
+    import { resolveDevMessage } from '../../utils/react_component';
     import SponsorIcon from '../external/SponsorIcon';
     import RepoIcon from '../external/RepoIcon';
     import PrivacyPolicyIcon from '../external/PrivacyPolicyIcon';

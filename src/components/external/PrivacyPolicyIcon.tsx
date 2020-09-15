@@ -4,9 +4,9 @@
 // Internal dependencies
     import { ClickableIconExternalLinkProps } from '../../defs/external';
     import { VisualConstants } from '../../VisualConstants';
-    import { handleUiIconExternal } from '../Common';
+    import { handleUiIconExternal } from '../../utils/react_component';
 
-    export default class SponsorIcon extends React.Component<ClickableIconExternalLinkProps, {}> {
+    export default class PrivacyPolicyIcon extends React.Component<ClickableIconExternalLinkProps, {}> {
         render() {
             return(
                 <a  

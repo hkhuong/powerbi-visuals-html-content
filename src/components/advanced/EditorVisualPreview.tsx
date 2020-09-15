@@ -3,7 +3,7 @@
     import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 // Internal dependencies
     import { EditorVisualPreviewProps } from '../../defs/advanced';
-    import VisualContent from '../VisualContent';
+    import VisualContent from '../standard/VisualContent';
 
 /**
  * Preview area (main display) component of advanced editor UI

@@ -4,7 +4,8 @@
         "jsx": "react",
         "types": [
             "react",
-            "react-dom"
+            "react-dom",
+            "node"
         ],
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,

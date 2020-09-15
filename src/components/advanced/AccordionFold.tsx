@@ -26,12 +26,14 @@
             constructor(props: AccordionFoldProps) {
                 super(props);
                 this.state = {
-                    expanded: false
+                    isExpanded: false,
+                    isDirty: false
                 };
                 this.editorRef = React.createRef();
                 this.handleAccordionClick = this.handleAccordionClick.bind(this);
                 this.handleApplyClick = this.handleApplyClick.bind(this);
                 this.handleResetClick = this.handleResetClick.bind(this);
+                this.handleChange = this.handleChange.bind(this);
             }
 
             render() {
@@ -43,7 +45,8 @@
                         editorOptions
                     } = this.props,
                     {
-                        expanded
+                        isExpanded,
+                        isDirty
                     } = this.state,
                     textAreaId = `text${ this.props.selectorIdSuffix }`;
                 return (
@@ -52,12 +55,11 @@
                             className = { `w3-button w3-left-align w3-block accordion-button ` }
                             onClick = { this.handleAccordionClick }
                         >
-
                             { this.resolveIcon() } &nbsp;
                             { this.props.heading }
                         </button>
                         <div
-                            className = { `accordion-fold-content w3-container w3-border-top w3-${expanded && 'show' || 'hide'}` }
+                            className = { `accordion-fold-content w3-container w3-border-top w3-${isExpanded && 'show' || 'hide'}` }
                         >
                             <p className = 'text-muted assistive small'>
                                 { this.props.assistiveText }
@@ -78,8 +80,10 @@
                                             useWorker: false,
                                             enableLiveAutocompletion: true,
                                             enableBasicAutocompletion: true,
-                                            wrap: editorOptions.wrap
+                                            wrap: editorOptions.wrap,
+                                            showPrintMargin: false
                                         }}
+                                        onChange = { this.handleChange }
                                     />
                                 </div>
                             </p>
@@ -88,6 +92,7 @@
                                     <button
                                         className = 'w3-button w3-small primary'
                                         type = 'button'
+                                        disabled = { !isDirty }
                                         onClick = { this.handleApplyClick }
                                     >
                                             { localisationManager.getDisplayName('Button_Apply') }
@@ -114,6 +119,12 @@
                 this.editorRef.current.editor.completers = this.getAutoCompleter();
             }
 
+            private handleChange(text: string) {
+                this.setState({
+                    isDirty: text !== this.props.currentValue
+                });
+            }
+
         /**
          * Ensure that toggle state is managed when the header is clicked
          *
@@ -122,7 +133,7 @@
             private handleAccordionClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
                 e.preventDefault();
                 this.setState({
-                    expanded: !this.state.expanded
+                    isExpanded: !this.state.isExpanded
                 });
             }
 
@@ -130,7 +141,7 @@
          * Ensure that the correct state icon is displayed, depending on whether menu is open or closed
          */
             resolveIcon() {
-                return this.state.expanded &&
+                return this.state.isExpanded &&
                     <CgChevronUp className = 'visual-icon accordion-chevron'/> ||
                     <CgChevronDown className = 'visual-icon accordion-chevron'/>;
             }
@@ -145,8 +156,13 @@
                 const
                     defaultValue = this.editorRef.current.editor.getValue(),
                     changes = this.getNewObjectInstance();
-                changes.replace[0].properties[this.props.propertyName] = defaultValue;
-                this.props.host.persistProperties(changes);
+                this.setState({
+                    isDirty: false
+                }, () => {
+                    changes.replace[0].properties[this.props.propertyName] = defaultValue;
+                    this.editorRef.current.editor.focus();
+                    this.props.host.persistProperties(changes);
+                });
             };
 
         /**
@@ -161,6 +177,8 @@
                     changes = this.getNewObjectInstance();
                 changes.replace[0].properties[this.props.propertyName] = defaultValue;
                 this.editorRef.current.editor.setValue(defaultValue);
+                this.editorRef.current.editor.clearSelection();
+                this.editorRef.current.editor.focus();
                 this.props.host.persistProperties(changes);
             };
 
