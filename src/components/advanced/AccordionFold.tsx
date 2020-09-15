@@ -119,6 +119,11 @@
                 this.editorRef.current.editor.completers = this.getAutoCompleter();
             }
 
+        /**
+         * if the current editor content doesn't match the initial/persisted property value then we need to flag as dirty.
+         *
+         * @param text  - editor text
+         */
             private handleChange(text: string) {
                 this.setState({
                     isDirty: text !== this.props.currentValue

@@ -27,9 +27,8 @@
                             fontSize: `${contentFormatting?.fontSize}pt`
                         }}
                         readOnly
-                    >
-                        { pretty(this.getEnclosedBodyContent()) }
-                    </textarea>
+                        value = { pretty(this.getEnclosedBodyContent()) }
+                    />
                 )
             } else {
                 return (
