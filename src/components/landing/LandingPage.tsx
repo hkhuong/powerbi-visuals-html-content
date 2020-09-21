@@ -8,6 +8,7 @@
     import SponsorIcon from '../external/SponsorIcon';
     import RepoIcon from '../external/RepoIcon';
     import PrivacyPolicyIcon from '../external/PrivacyPolicyIcon';
+    import IssuesIcon from '../external/IssuesIcon';
 
     export default class LandingPage extends React.Component<LandingPageProps, {}> {
         render() {
@@ -30,8 +31,9 @@
                         </header>
                         <div className = 'w3-container w3-border-left w3-border-right w3-border-bottom bar w3-right-align'>
                             <strong>{ VisualConstants.visual.version }</strong>&nbsp;
-                            <PrivacyPolicyIcon host = { host } localisationManager = { localisationManager } />&nbsp;
-                            <SponsorIcon host = { host } localisationManager = { localisationManager } /> &nbsp;
+                            <PrivacyPolicyIcon host = { host } localisationManager = { localisationManager } />
+                            <SponsorIcon host = { host } localisationManager = { localisationManager } />
+                            <IssuesIcon host = { host } localisationManager = { localisationManager } />&nbsp;
                             <RepoIcon host = { host } localisationManager = { localisationManager } />&nbsp;
                             { resolveDevMessage() }
                         </div>

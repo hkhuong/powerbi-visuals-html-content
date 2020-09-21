@@ -7,6 +7,7 @@
     import SponsorIcon from '../external/SponsorIcon';
     import RepoIcon from '../external/RepoIcon';
     import PrivacyPolicyIcon from '../external/PrivacyPolicyIcon';
+    import IssuesIcon from '../external/IssuesIcon';
 
 /**
  * Header component of advanced editor UI
@@ -27,8 +28,9 @@
                         </div>
                         <div className = 'w3-col s6 w3-container visual-name info editor-header-col'>
                             { VisualConstants.visual.displayName }&nbsp;<strong>{ VisualConstants.visual.version}</strong>&nbsp;
-                            <PrivacyPolicyIcon host = { host } localisationManager = { localisationManager } />&nbsp;
-                            <SponsorIcon host = { host } localisationManager = { localisationManager } /> &nbsp;
+                            <PrivacyPolicyIcon host = { host } localisationManager = { localisationManager } />
+                            <SponsorIcon host = { host } localisationManager = { localisationManager } />
+                            <IssuesIcon host = { host } localisationManager = { localisationManager } />&nbsp;
                             <RepoIcon host = { host } localisationManager = { localisationManager } />&nbsp;
                             { resolveDevMessage() }
                         </div>

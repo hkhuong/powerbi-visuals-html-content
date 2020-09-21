@@ -1,6 +1,6 @@
 // External dependencies
     import * as React from 'react';
-    import { GoShield } from 'react-icons/go';
+    import { GoLock } from 'react-icons/go';
 // Internal dependencies
     import { ClickableIconExternalLinkProps } from '../../defs/external';
     import { VisualConstants } from '../../VisualConstants';
@@ -14,7 +14,7 @@
                     onClick = { (e) => handleUiIconExternal(e, this.props.host) }
                     title = { this.props.localisationManager.getDisplayName('Privacy_Policy_Tooltip') }
                 >
-                    <GoShield className = 'visual-icon'/>
+                    <GoLock className = 'visual-icon'/>
                 </a>
             );
         }

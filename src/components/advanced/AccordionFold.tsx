@@ -77,6 +77,7 @@
                                         maxLines = { 20 }
                                         setOptions = {{
                                             tabSize: editorOptions.tabSize,
+                                            useSoftTabs: true,
                                             useWorker: false,
                                             enableLiveAutocompletion: true,
                                             enableBasicAutocompletion: true,

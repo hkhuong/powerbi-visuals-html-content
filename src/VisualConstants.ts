@@ -14,7 +14,8 @@
         support: {
             home: visual.supportUrl,
             sponsors: 'https://github.com/sponsors/dm-p',
-            privacy: 'https://github.com/dm-p/powerbi-visuals-html-content/blob/master/doc/privacy_policy.md'
+            privacy: 'https://github.com/dm-p/powerbi-visuals-html-content/blob/master/doc/privacy_policy.md',
+            issues: 'https://github.com/dm-p/powerbi-visuals-html-content/issues'
         },
         contentFormatting: {
             showRawHtml: false,
@@ -51,7 +52,7 @@
                 max: 60
             },
             tabsize: {
-                default: 4,
+                default: 2,
                 min: 1,
                 max: 12
             },
